@@ -1,56 +1,56 @@
 <?php
-    session_start();
+session_start();
 
-    include 'DB_con.php';
-    $db = new DB_con();
+include 'DB_con.php';
+$db = new DB_con();
 
-    $uname_err = $email_err = $password_err = '';
+$uname_err = $email_err = $password_err = '';
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-        // Username validation
-        } if (empty($username)) {
-            $uname_err = 'Username is required';
+    // Username validation
+    } if (empty($username)) {
+        $uname_err = 'Username is required';
+    } else {
+        $result = $db->usernameAvailability($username);
+        if (mysqli_num_rows($result) > 0) {
+            $uname_err = 'Username already exists';
+        }
+    }
+
+    // Email validation
+    if (empty($email)) {
+        $email_err = 'Email is required';
+    } else {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $email_err = 'Invalid email format';
+        }
+    }
+
+    // Password validation
+    if (empty($password)) {
+        $password_err = 'Password is required';
+    } else {
+        if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $password)) {
+            $password_err = 'Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a symbol, and a number.';
+        }
+    }
+
+    if (empty($uname_err) && empty($email_err) && empty($password_err)) {
+        $result = $db->registration($username, $email, $password);
+        if ($result) {
+            // User registered successfully
+            $_SESSION['registered'] = true; // Set a session variable
+            // Redirect to login.php
+            header("Location: login.php");
+            exit;
         } else {
-            $result = $db->usernameAvailability($username);
-            if (mysqli_num_rows($result) > 0) {
-                $uname_err = 'Username already exists';
-            }
+            echo 'Something went wrong. Please try again.';
         }
-
-        // Email validation
-        if (empty($email)) {
-            $email_err = 'Email is required';
-        } else {
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $email_err = 'Invalid email format';
-            }
-        }
-
-        // Password validation
-        if (empty($password)) {
-            $password_err = 'Password is required';
-        } else {
-            if (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $password)) {
-                $password_err = 'Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a symbol, and a number.';
-            }
-        }
-
-        if (empty($uname_err) && empty($email_err) && empty($password_err)) {
-            $result = $db->registration($username, $email, $password);
-            if ($result) {
-                // User registered successfully
-                $_SESSION['registered'] = true; // Set a session variable
-                // Redirect to login.php
-                header("Location: login.php");
-                exit;
-            } else {
-                echo 'Something went wrong. Please try again.';
-            }
-        }
+    }
 ?>
 
 <!doctype html>
@@ -66,6 +66,7 @@
 <body>
     <?php include 'navbar.php'; ?>
     <form method="post">
+        <h1>Registration</h1>
         <div>
             <label for="username">Username</label>
             <input type="text" name="username" placeholder="Username">

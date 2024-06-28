@@ -1,15 +1,3 @@
-<?php
-session_start(); // Start the session at the beginning of the file
-
-if (!isset($_SESSION['loggedin'])) {
-    // User is not logged in
-    // Redirect to login.php
-    header("Location: login.php");
-    exit;
-}
-
-?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,9 +10,16 @@ if (!isset($_SESSION['loggedin'])) {
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include 'includes/navbar.php'; ?>
     <h1>Welcome to Rotten Potato!</h1>
-    <p>You are logged in as <?php echo $_SESSION['username']; ?>.</p>
+
+    <?php
+    if (!isset($_SESSION['username'])) {
+        echo "You are not logged in.";
+    } else {
+        echo "You are logged in as " . $_SESSION['username'];
+    }
+    ?>
 
     <form method="get" action="search.php">
         <input type="text" name="query" id="search" placeholder="Search for a movie..." list="suggestions">
@@ -32,5 +27,6 @@ if (!isset($_SESSION['loggedin'])) {
         <input type="submit" value="Search">
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/search.js"></script>
 </body>
 </html>

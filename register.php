@@ -1,23 +1,27 @@
 <?php
 session_start();
 
-include 'DB_con.php';
-$db = new DB_con();
+include 'includes/DB_con.php';
+include 'includes/User.php';
 
-$uname_err = $email_err = $password_err = '';
+$db = new DB_con();
+$user = new User($db);
+
+$username_err = $email_err = $password_err = $confirm_password_err = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
 
     // Username validation
     } if (empty($username)) {
-        $uname_err = 'Username is required';
+        $username_err = 'Username is required';
     } else {
-        $result = $db->usernameAvailability($username);
+        $result = $user->usernameAvailability($username);
         if (mysqli_num_rows($result) > 0) {
-            $uname_err = 'Username already exists';
+            $username_err = 'Username is already taken';
         }
     }
 
@@ -27,6 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $email_err = 'Invalid email format';
+        }
+        $result = $user->emailAvailability($email);
+        if (mysqli_num_rows($result) > 0) {
+            $email_err = 'Email is already registered';
         }
     }
 
@@ -39,8 +47,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    if (empty($uname_err) && empty($email_err) && empty($password_err)) {
-        $result = $db->registration($username, $email, $password);
+    // Confirm password validation
+    if (empty($confirm_password)) {
+        $confirm_password_err = 'Please confirm password';
+    } else {
+        if ($password !== $confirm_password) {
+            $confirm_password_err = 'Passwords do not match';
+        }
+    }
+
+    if (empty($username_err) && empty($email_err) && empty($password_err)) {
+        $result = $user->register($username, $email, $password);
         if ($result) {
             // User registered successfully
             $_SESSION['registered'] = true; // Set a session variable
@@ -64,13 +81,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include 'includes/navbar.php'; ?>
     <form method="post">
-        <h1>Registration</h1>
+        <h1>Register</h1>
         <div>
             <label for="username">Username</label>
             <input type="text" name="username" placeholder="Username">
-            <span style="color: red;"><?php echo $uname_err; ?></span>
+            <span style="color: red;"><?php echo $username_err; ?></span>
         </div>
         <div>
             <label for="email">Email</label>
@@ -81,6 +98,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="password">Password</label>
             <input type="password" name="password" placeholder="Password">
             <span style="color: red;"><?php echo $password_err; ?></span>
+        </div>
+        <div>
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" name="confirm_password" placeholder="Confirm Password">
+            <span style="color: red;"><?php echo $confirm_password_err; ?></span>
         </div>
         <input type="submit" value="Register">
     </form>

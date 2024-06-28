@@ -80,8 +80,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Rotten Potato</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 </head>
+    <style>
+        form{
+            margin: auto;
+            width: 450px;
+            margin-top: 3%;
+        }
+
+        .form-control{
+            border: none;
+        }
+
+    </style>
 <body>
     <?php include 'includes/navbar.php'; ?>
+<<<<<<< HEAD
+    <form class="bg-opacity-75 p-3 mb-2 bg-dark text-white rounded" method="post">
+        <h1>Registration</h1>
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label" for="username">Username</label>
+            <input class="form-control" type="text" name="username" placeholder="Username">
+            <span style="color: red;"><?php echo $username_err; ?></span>
+        </div>
+        <div class="form-group"> 
+            <label class="col-sm-2 col-form-label" for="email">Email</label>
+            <input class="form-control" type="email" name="email" placeholder="Email">
+            <span style="color: red;"><?php echo $email_err; ?></span>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label" for="password">Password</label>
+            <input class="form-control" type="password" name="password" placeholder="Password">
+            <span style="color: red;"><?php echo $password_err; ?></span>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label" for="confirm_password">Confirm&nbspPassword</label>
+            <input class="form-control" type="password" name="confirm_password" value="<?php if(isset($_POST['confirm_password'])){ echo $_POST['confirm_password']; }?>" placeholder="Confirm Password">
+            <span style="color: red;"><?php if(isset($_POST["confirm_password"])){ echo $confirm_password_err; } ?></span>
+        </div><br>
+        <input class="form-control bg-primary text-white" type="submit" value="Register">
+        <p>Already have an account? <a href="login.php">Login here</a>.</p>
+=======
     <form method="post">
         <h1>Register</h1>
         <div>
@@ -105,8 +143,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span style="color: red;"><?php if(isset($_POST["confirm_password"])){ echo $confirm_password_err; } ?></span>
         </div>
         <input type="submit" value="Register">
+>>>>>>> 472093fe879dc2976c697ba0afd5306d5d84471a
     </form>
-    <p>Already have an account? <a href="login.php">Login here</a>.</p>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,17 +1,20 @@
-document.getElementById('search').addEventListener('input', function() {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'search_suggestions.php?query=' + this.value, true);
-    xhr.onload = function() {
-        if (this.status == 200) {
-            var suggestions = JSON.parse(this.responseText);
-            var datalist = document.getElementById('suggestions');
-            datalist.innerHTML = '';
-            suggestions.forEach(function(suggestion) {
-                var option = document.createElement('option');
-                option.value = suggestion;
-                datalist.appendChild(option);
+const searchBox = document.getElementById('search');
+
+searchBox.addEventListener('input', searchMovies);
+
+function searchMovies() {
+    fetch(`search.php?query=${searchBox.value}`)
+        .then(response => response.json())
+        .then(data => {
+            // Clear the movie list
+            const movieList = document.getElementById('movie-list');
+            movieList.innerHTML = '';
+
+            // Populate the movie list with the returned movie titles
+            data.forEach(movie => {
+                const listItem = document.createElement('li');
+                listItem.textContent = movie.title;
+                movieList.appendChild(listItem);
             });
-        }
-    };
-    xhr.send();
-});
+        });
+}

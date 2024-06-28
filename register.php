@@ -86,23 +86,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Register</h1>
         <div>
             <label for="username">Username</label>
-            <input type="text" name="username" placeholder="Username">
-            <span style="color: red;"><?php echo $username_err; ?></span>
+            <input type="text" name="username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; }?>" placeholder="Username">
+            <span style="color: red;"><?php if(isset($_POST["username"])){ echo $username_err; } ?></span>
         </div>
         <div>
             <label for="email">Email</label>
-            <input type="email" name="email" placeholder="Email">
-            <span style="color: red;"><?php echo $email_err; ?></span>
+            <input type="email" name="email" value="<?php if(isset($_POST['email'])){ echo $_POST['email']; }?>" placeholder="Email">
+            <span style="color: red;"><?php if(isset($_POST["email"])){ echo $email_err; } ?></span>
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Password">
-            <span style="color: red;"><?php echo $password_err; ?></span>
+            <input type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
+            <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
         </div>
         <div>
             <label for="confirm_password">Confirm Password</label>
-            <input type="password" name="confirm_password" placeholder="Confirm Password">
-            <span style="color: red;"><?php echo $confirm_password_err; ?></span>
+            <input type="password" name="confirm_password" value="<?php if(isset($_POST['confirm_password'])){ echo $_POST['confirm_password']; }?>" placeholder="Confirm Password">
+            <span style="color: red;"><?php if(isset($_POST["confirm_password"])){ echo $confirm_password_err; } ?></span>
         </div>
         <input type="submit" value="Register">
     </form>

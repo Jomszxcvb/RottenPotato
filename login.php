@@ -26,9 +26,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(empty($username_err) && empty($password_err)) {
         $user = $user->login($username, $password);
         if ($user) {
-            // User logged in successfully
-            $_SESSION['loggedin'] = true; // Set a session variable
-            $_SESSION['username'] = $user['username']; // Set a session variable
             // Redirect to index.php
             header("Location: index.php");
             exit;
@@ -55,13 +52,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Login</h1>
         <div>
             <label for="username">Username</label>
-            <input type="text" name="username" placeholder="Username">
-            <span style="color: red;"><?php echo $username_err; ?></span>
+            <input type="text" name="username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; }?>" placeholder="Username">
+            <span style="color: red;"><?php if(isset($_POST["username"])){ echo $username_err; } ?></span>
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Password">
-            <span style="color: red;"><?php echo $password_err; ?></span>
+            <input type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
+            <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
         </div>
         <input type="submit" value="Login">
     </form>

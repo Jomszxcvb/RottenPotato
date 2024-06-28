@@ -1,3 +1,20 @@
+<?php
+session_start();
+
+require_once 'includes/DB_con.php';
+require_once 'includes/User.php';
+require_once  'includes/Movie.php';
+
+$DB = new DB_con();
+$User = new User($DB);
+$Movie = new Movie($DB);
+
+$movies = [];
+if (isset($_GET['search'])) {
+    $movies = $Movie->searchMovies($_GET['search']);
+}
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,11 +38,28 @@
     }
     ?>
 
-    <form method="get" action="search.php">
-        <input type="text" name="query" id="search" placeholder="Search for a movie..." list="suggestions">
-        <datalist id="suggestions"></datalist>
-        <input type="submit" value="Search">
+    <form action="" method="get">
+        <label for="search">Search for movies</label>
+        <input type="text" name="search" value="<?php if(isset($_GET["search"])){ echo $_GET["search"]; }?>" placeholder="Search for movies">
+        <button type="submit">Search</button>
     </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Movie Title</th>
+                <th>Potato Meter</th>
+            </tr>
+        </thead>
+    <tbody>
+        <?php foreach ($movies as $movie): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($movie['title']); ?></td>
+                <td><?php if(!$movie['potato_meter']) { echo '--'; } else { echo $movie['Potato Meter']; } ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+    </table>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/search.js"></script>
 </body>

@@ -37,7 +37,8 @@ class User
             echo "Password verify result: $isPasswordCorrect<br>"; // Debugging code
             */
             if ($isPasswordCorrect) {
-
+                $_SESSION['loggedin'] = true;
+                $_SESSION['username'] = $username;
                 return $user;
             }
         }

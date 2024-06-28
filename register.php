@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </style>
 <body>
     <?php include 'includes/navbar.php'; ?>
-<<<<<<< HEAD
+
     <form class="bg-opacity-75 p-3 mb-2 bg-dark text-white rounded" method="post">
         <h1>Registration</h1>
         <div class="form-group">
@@ -119,31 +119,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div><br>
         <input class="form-control bg-primary text-white" type="submit" value="Register">
         <p>Already have an account? <a href="login.php">Login here</a>.</p>
-=======
-    <form method="post">
-        <h1>Register</h1>
-        <div>
-            <label for="username">Username</label>
-            <input type="text" name="username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; }?>" placeholder="Username">
-            <span style="color: red;"><?php if(isset($_POST["username"])){ echo $username_err; } ?></span>
-        </div>
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" value="<?php if(isset($_POST['email'])){ echo $_POST['email']; }?>" placeholder="Email">
-            <span style="color: red;"><?php if(isset($_POST["email"])){ echo $email_err; } ?></span>
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
-            <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
-        </div>
-        <div>
-            <label for="confirm_password">Confirm Password</label>
-            <input type="password" name="confirm_password" value="<?php if(isset($_POST['confirm_password'])){ echo $_POST['confirm_password']; }?>" placeholder="Confirm Password">
-            <span style="color: red;"><?php if(isset($_POST["confirm_password"])){ echo $confirm_password_err; } ?></span>
-        </div>
-        <input type="submit" value="Register">
->>>>>>> 472093fe879dc2976c697ba0afd5306d5d84471a
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

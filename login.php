@@ -1,38 +1,39 @@
 <?php
-    session_start();
+session_start();
 
-    include 'DB_con.php';
-    $db = new DB_con();
+include 'DB_con.php';
+$db = new DB_con();
 
-    $uname_err = $password_err = '';
+$uname_err = $password_err = '';
 
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-        // Username validation
-        if (empty($username)) {
-            $uname_err = 'Username is required';
-        }
+    // Username validation
+    if (empty($username)) {
+        $uname_err = 'Username is required';
+    }
 
-        // Password validation
-        if (empty($password)) {
-            $password_err = 'Password is required';
-        }
+    // Password validation
+    if (empty($password)) {
+        $password_err = 'Password is required';
+    }
 
-        if(empty($username_err) && empty($password_err)) {
-            $user = $db->login($username, $password);
-            if ($user) {
-                // User logged in successfully
-                $_SESSION['loggedin'] = true; // Set a session variable
-                // Redirect to index.php
-                header("Location: index.php");
-                exit;
-            } else {
-                $password_err = 'Invalid username or password.';
-            }
+    if(empty($username_err) && empty($password_err)) {
+        $user = $db->login($username, $password);
+        if ($user) {
+            // User logged in successfully
+            $_SESSION['loggedin'] = true; // Set a session variable
+            $_SESSION['username'] = $user['username']; // Set a session variable
+            // Redirect to index.php
+            header("Location: index.php");
+            exit;
+        } else {
+            $password_err = 'Invalid username or password.';
         }
     }
+}
 ?>
 
 <!doctype html>
@@ -54,6 +55,7 @@
     ?>
     <?php include 'navbar.php'; ?>
     <form method="post">
+        <h1>Login</h1>
         <div>
             <label for="username">Username</label>
             <input type="text" name="username" placeholder="Username">

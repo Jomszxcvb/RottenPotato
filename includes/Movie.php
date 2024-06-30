@@ -39,7 +39,7 @@ class Movie
     public function getPotatoMeter($id)
     {
         $id = mysqli_real_escape_string($this->dbh, $id);
-        $result = mysqli_query($this->dbh, "SELECT Cpotato_meter) as avg_potato_meter FROM movie_ratings WHERE movie_id = '$id'");
+        $result = mysqli_query($this->dbh, "SELECT (potato_meter) as avg_potato_meter FROM movie_ratings WHERE movie_id = '$id'");
         $movie = mysqli_fetch_assoc($result);
         return $movie['avg_potato_meter'];
     }

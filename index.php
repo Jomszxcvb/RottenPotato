@@ -60,6 +60,9 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
         <button type="submit">Search</button>
     </form>
 
+    <?php if (empty($movies)): ?>
+        <p>No movies found.</p>
+    <?php else: ?>
     <table>
         <thead>
             <tr>
@@ -68,35 +71,32 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
             </tr>
         </thead>
     <tbody>
-        <?php if (empty($movies)): ?>
-            <p>No movies found.</p>
-        <?php else: ?>
-            <?php foreach ($movies as $movie): ?>
-            <tr>
+        <?php foreach ($movies as $movie): ?>
+        <tr>
+            <?php
+            $movie_id = htmlspecialchars($movie['id']);
+            $movie_title = htmlspecialchars($movie['title']);
+            $movie_potato_meter = $Movie->getPotatoMeter($movie_id);
+            ?>
+            <td><a href="movie.php?movie_id=<?php echo $movie_id; ?>"><?php echo $movie_title; ?></a></td>
+            <td>
                 <?php
-                $movie_id = htmlspecialchars($movie['id']);
-                $movie_title = htmlspecialchars($movie['title']);
-                $movie_potato_meter = $Movie->getPotatoMeter($movie_id);
-                ?>
-                <td><a href="movie.php?movie_id=<?php echo $movie_id; ?>"><?php echo $movie_title; ?></a></td>
-                <td>
-                    <?php
-                    for($i = 0; $i < 5; $i++) {
-                        if ($i < floor($movie_potato_meter)) {
-                            echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>';
-                        } else {
-                            echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
-                        }
+                for($i = 0; $i < 5; $i++) {
+                    if ($i < floor($movie_potato_meter)) {
+                        echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>';
+                    } else {
+                        echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
                     }
-                    echo " (" . round($movie_potato_meter, 1) . ")";
+                }
+                echo " (" . round($movie_potato_meter, 1) . ")";
 
-                    ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        <?php endif; ?>
+                ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
     </tbody>
     </table>
+    <?php endif; ?>
 
     <?php if (!empty($movies)): ?>
         <div class="pagination">

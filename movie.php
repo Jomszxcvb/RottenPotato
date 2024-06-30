@@ -70,6 +70,7 @@
     <?php else: ?>
         <p>Please <a href="login.php">log in</a> to rate this movie.</p>
     <?php endif; ?>
+    <p><a href="index.php">Back to movies</a></p>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {

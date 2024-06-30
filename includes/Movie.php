@@ -39,7 +39,7 @@ class Movie
     public function getPotatoMeter($id)
     {
         $id = mysqli_real_escape_string($this->dbh, $id);
-        $result = mysqli_query($this->dbh, "SELECT COALESCE(AVG(potato_meter), NULL) as avg_potato_meter FROM movie_ratings WHERE movie_id = '$id'");
+        $result = mysqli_query($this->dbh, "SELECT Cpotato_meter) as avg_potato_meter FROM movie_ratings WHERE movie_id = '$id'");
         $movie = mysqli_fetch_assoc($result);
         return $movie['avg_potato_meter'];
     }
@@ -82,6 +82,13 @@ class Movie
         }
         $sql .= " LIMIT $start_index, $movies_per_page";
         $result = $this->dbh->query($sql);
+        if ($result === false) {
+            // Option 1: Return an empty array
+            return [];
+
+            // Option 2: Throw an exception
+            // throw new Exception("Failed to execute query: " . $this->dbh->error);
+        }
         $movies = [];
         while ($row = $result->fetch_assoc()) {
             $movies[] = $row;

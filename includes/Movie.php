@@ -41,7 +41,7 @@ class Movie
         $id = mysqli_real_escape_string($this->dbh, $id);
         $result = mysqli_query($this->dbh, "SELECT (potato_meter) as avg_potato_meter FROM movie_ratings WHERE movie_id = '$id'");
         $movie = mysqli_fetch_assoc($result);
-        return $movie['avg_potato_meter'];
+        return $movie ? $movie['avg_potato_meter'] : null;
     }
 
     public function savePotatoMeter($userId, $movieId, $potatoMeter)

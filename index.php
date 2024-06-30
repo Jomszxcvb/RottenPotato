@@ -31,10 +31,11 @@ if (isset($_GET['search'])) {
     <h1>Welcome to Rotten Potato!</h1>
 
     <?php
-    if (!isset($_SESSION['username'])) {
+    if (!isset($_SESSION['user_id'])) {
         echo "You are not logged in.";
     } else {
-        echo "You are logged in as " . $_SESSION['username'];
+        echo "You are logged in as " . $_SESSION['username'] . "!";
+        // echo "Your user ID is " . $_SESSION['user_id'] . "."; // Uncomment this line to see the user ID
     }
     ?>
 
@@ -53,10 +54,30 @@ if (isset($_GET['search'])) {
         </thead>
     <tbody>
         <?php foreach ($movies as $movie): ?>
-            <tr>
-                <td><?php echo htmlspecialchars($movie['title']); ?></td>
-                <td><?php if(!$movie['potato_meter']) { echo '--'; } else { echo $movie['Potato Meter']; } ?></td>
-            </tr>
+        <tr>
+            <?php
+            $movie_id = htmlspecialchars($movie['id']);
+            $movie_title = htmlspecialchars($movie['title']);
+            $movie_potato_meter = $Movie->getPotatoMeter($movie_id);
+            ?>
+            <td><a href="movie.php?id=<?php echo $movie_id; ?>"><?php echo $movie_title; ?></a></td>
+            <td>
+                <?php
+                if ($movie_potato_meter == 0) {
+                    echo "No potatoes yet!";
+                } else {
+                    for($i = 0; $i < 5; $i++) {
+                        if ($i < $movie_potato_meter) {
+                            echo '<span class="potato active" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
+                        } else {
+                            echo '<span class="potato" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
+                        }
+                    }
+                    echo " (" . round($movie_potato_meter, 1) . ")";
+                }
+                ?>
+            </td>
+        </tr>
         <?php endforeach; ?>
     </tbody>
     </table>

@@ -13,7 +13,21 @@ $movies = [];
 if (isset($_GET['search'])) {
     $movies = $Movie->searchMovies($_GET['search']);
 }
+
+$movies_per_page = 5;
+$total_movies = $Movie->getTotalMovies(isset($_GET['search']) ? $_GET['search'] : null);
+$total_pages = ceil($total_movies / $movies_per_page);
+
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($current_page < 1) $current_page = 1;
+if ($current_page > $total_pages) $current_page = $total_pages;
+
+$start_index = ($current_page - 1) * $movies_per_page;
+
+$movies = $Movie->getMoviesByPage($start_index, $movies_per_page, isset($_GET['search']) ? $_GET['search'] : null);
 ?>
+
+
 
 <!doctype html>
 <html lang="en">
@@ -78,6 +92,23 @@ if (isset($_GET['search'])) {
         <?php endforeach; ?>
     </tbody>
     </table>
+
+    <div class="pagination">
+        <?php if ($current_page > 1): ?>
+        <a href="?page=<?php echo $current_page - 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Previous</a>
+        <?php endif; ?>
+
+        <?php
+        $start = max(1, $current_page - 5);
+        $end = min($total_pages, $current_page + 5);
+        for ($i = $start; $i <= $end; $i++): ?>
+        <a href="?page=<?php echo $i; ?>&search=<?php echo $_GET['search'] ?? ''; ?>"<?php if ($i == $current_page) echo ' class="active"'; ?>><?php echo $i; ?></a>
+        <?php endfor; ?>
+
+        <?php if ($current_page < $total_pages): ?>
+        <a href="?page=<?php echo $current_page + 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Next</a>
+        <?php endif; ?>
+    </div>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         // Select all the potato spans

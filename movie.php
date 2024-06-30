@@ -1,21 +1,21 @@
 <?php
-    session_start();
+session_start();
 
-    require_once 'includes/DB_con.php';
-    require_once 'includes/Movie.php';
-    require_once 'includes/User.php';
+require_once 'includes/DB_con.php';
+require_once 'includes/Movie.php';
+require_once 'includes/User.php';
 
-    $db = new DB_con();
-    $movie = new Movie($db);
-    $user = new User($db);
+$db = new DB_con();
+$movie = new Movie($db);
+$user = new User($db);
 
-    $movie_title = $movie->getMovieTitle($_GET['movie_id']);
-    $movie_synopsis = $movie->getMovieSynopsis($_GET['movie_id']);
-    $movie_potato_meter = $movie->getPotatoMeter($_GET['movie_id']);
+$movie_title = $movie->getMovieTitle($_GET['movie_id']);
+$movie_synopsis = $movie->getMovieSynopsis($_GET['movie_id']);
+$movie_potato_meter = $movie->getPotatoMeter($_GET['movie_id']);
 
-    if (isset($_SESSION['user_id'])) {
-        $userPotatoMeter = $user->getUserPotatoMeter($_SESSION['user_id'], $_GET['movie_id']);
-    }
+if (isset($_SESSION['user_id'])) {
+    $userPotatoMeter = $user->getUserPotatoMeter($_SESSION['user_id'], $_GET['movie_id']);
+}
 ?>
 
 <!doctype html>

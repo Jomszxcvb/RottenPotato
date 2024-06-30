@@ -69,13 +69,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Login</h1>
         <div class="form-group">
             <label class="col-sm-2 col-form-label" for="username">Username</label>
-            <input class="form-control" type="text" name="username" placeholder="Username">
-            <span style="color: red;"><?php echo $username_err; ?></span>
+            <input class="form-control" type="text" name="username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; }?>" placeholder="Username">
+            <span style="color: red;"><?php if(isset($_POST["username"])){ echo $username_err; } ?></span>
         </div>
         <div class="form-group"> 
             <label class="col-sm-2 col-form-label" for="password">Password</label>
-            <input class="form-control" type="password" name="password" placeholder="Password">
-            <span style="color: red;"><?php echo $password_err; ?></span>
+            <input class="form-control" type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
+            <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
         </div><br>
         <input class="form-control bg-primary text-white" type="submit" value="Login">
         <p>Don't have an account? <a href="register.php">Register here</a>.</p>

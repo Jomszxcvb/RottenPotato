@@ -90,7 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .form-control{
             border: none;
         }
-
     </style>
 <body>
     <?php include 'includes/navbar.php'; ?>

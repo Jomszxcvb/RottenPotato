@@ -14,7 +14,7 @@
 
         $user->rateMovie($user_id, $movie_id, $rating);
 
-        header('Location: movie.php?id=' . $movie_id);
+        header('Location: movie.php?movie_id=' . $movie_id);
     } else {
         header('Location: index.php');
     }

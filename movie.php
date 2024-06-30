@@ -9,9 +9,13 @@
     $movie = new Movie($db);
     $user = new User($db);
 
-    $movie_title = $movie->getMovieTitle($_GET['id']);
-    $movie_synopsis = $movie->getMovieSynopsis($_GET['id']);
-    $movie_potato_meter = $movie->getPotatoMeter($_GET['id']);
+    $movie_title = $movie->getMovieTitle($_GET['movie_id']);
+    $movie_synopsis = $movie->getMovieSynopsis($_GET['movie_id']);
+    $movie_potato_meter = $movie->getPotatoMeter($_GET['movie_id']);
+
+    if (isset($_SESSION['user_id'])) {
+        $userPotatoMeter = $user->getUserPotatoMeter($_SESSION['user_id'], $_GET['movie_id']);
+    }
 ?>
 
 <!doctype html>
@@ -39,25 +43,22 @@
     <p><?php echo $movie_synopsis; ?></p>
     <p>Potato Meter:
         <?php
-        if ($movie_potato_meter == 0) {
-            echo "No potatoes yet!";
-        } else {
-            for($i = 0; $i < 5; $i++) {
-                if ($i < $movie_potato_meter) {
-                    echo '<span class="potato active" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
-                } else {
-                    echo '<span class="potato" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
-                }
+        for($i = 0; $i < 5; $i++) {
+            if ($i < $movie_potato_meter) {
+                echo '<span class="movie_potato active" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
+            } else {
+                echo '<span class="movie_potato" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
             }
-            echo " (" . round($movie_potato_meter, 1) . ")";
         }
+        echo " (" . round($movie_potato_meter, 1) . ")";
+
         ?>
     </p>
 
-    <?php if(isset($_SESSION['id'])): ?>
+    <?php if(isset($_SESSION['user_id'])): ?>
         <p>Rate this movie:</p>
         <form id="potato_rating" method="post" action="rate_movie.php">
-            <input type="hidden" name="movie_id" value="<?php echo $_GET['id']; ?>">
+            <input type="hidden" name="movie_id" value="<?php echo $_GET['movie_id']; ?>">
             <input type="hidden" id="potato_meter" name="potato_meter" value="">
             <span class="potato" data-value="1"><img src="assets/potato/potato.svg"></span>
             <span class="potato" data-value="2"><img src="assets/potato/potato.svg"></span>
@@ -76,8 +77,16 @@
         const potatoes = document.querySelectorAll('.potato');
         const potatoMeterInput = document.querySelector('#potato_meter');
 
-        // Color the potatoes based on the user's current potato meter
-        for (let i = 0; i < <?php echo $userPotatoMeter; ?>; i++) {
+        // Get the user's current rating
+        let userRating = <?php echo isset($userPotatoMeter) ? $userPotatoMeter : 0; ?>;
+
+        // Check if the user's rating is a number
+        if (isNaN(userRating)) {
+            userRating = 0;
+        }
+
+        // Color the potatoes based on the user's current rating
+        for (let i = 0; i < userRating; i++) {
             potatoes[i].classList.remove('potato');
             potatoes[i].classList.add('active');
         }

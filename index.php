@@ -64,19 +64,35 @@ if (isset($_GET['search'])) {
             <td>
                 <?php
                 for($i = 0; $i < 5; $i++) {
-                    if ($i < $movie_potato_meter) {
-                        echo '<span class="potato active" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
+                    if ($i < floor($movie_potato_meter)) {
+                        echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>';
                     } else {
-                        echo '<span class="potato" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
+                        echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
                     }
                 }
                 echo " (" . round($movie_potato_meter, 1) . ")";
+
                 ?>
             </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
     </table>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Select all the potato spans
+        const potatoes = document.querySelectorAll('.movie_potato');
+
+        // Color the potatoes based on the movie's potato meter
+        potatoes.forEach((potato, index) => {
+            if (potato.classList.contains('active')) {
+                potato.style.filter = 'grayscale(0)';
+            } else {
+                potato.style.filter = 'grayscale(1)';
+            }
+        });
+    });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/search.js"></script>
 </body>

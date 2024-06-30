@@ -44,10 +44,10 @@
     <p>Potato Meter:
         <?php
         for($i = 0; $i < 5; $i++) {
-            if ($i < $movie_potato_meter) {
-                echo '<span class="movie_potato active" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
+            if ($i < floor($movie_potato_meter)) {
+                echo '<span class="movie_potato active"><img src="assets/potato/potato.svg"></span>';
             } else {
-                echo '<span class="movie_potato" data-value="'.($i+1).'"><img src="assets/potato/potato.svg"></span>';
+                echo '<span class="movie_potato"><img src="assets/potato/potato.svg"></span>';
             }
         }
         echo " (" . round($movie_potato_meter, 1) . ")";
@@ -92,26 +92,51 @@
             potatoes[i].classList.add('active');
         }
 
-        // Add a click event listener to each potato
         potatoes.forEach((potato, index) => {
-            potato.addEventListener('click', () => {
-                // Reset all potatoes to grayscale
-                potatoes.forEach(potato => {
-                    potato.classList.add('potato');
-                    potato.classList.remove('active');
+                potato.addEventListener('mouseover', () => {
+                    for (let i = 0; i <= index; i++) {
+                        potatoes[i].style.filter = 'grayscale(0)';
+                        potatoes[i].style.cursor = 'pointer';
+                    }
+
+                    for (let i = index + 1; i < potatoes.length; i++) {
+                        potatoes[i].style.filter = 'grayscale(1)';
+                        potatoes[i].style.cursor = 'pointer';
+                    }
                 });
 
-                // Color the clicked potato and all previous potatoes
-                for (let i = 0; i <= index; i++) {
+                potato.addEventListener('mouseout', () => {
+                    for (let i = 0; i < userRating; i++) {
+                        potatoes[i].style.filter = 'grayscale(0)';
+                    }
+
+                    for (let i = userRating; i < potatoes.length; i++) {
+                        potatoes[i].style.filter = 'grayscale(1)';
+                    }
+                });
+
+                potato.addEventListener('click', () => {
+                    userRating = index + 1;
+                    potatoMeterInput.value = userRating; // Update the potato meter input field
+                });
+
+                // Add event listener for form submission
+                document.querySelector('#potato_rating').addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    // Update the userRating variable
+                    userRating = potatoMeterInput.value;
+
+                    for (let i = 0; i < userRating; i++) {
                     potatoes[i].classList.remove('potato');
                     potatoes[i].classList.add('active');
                 }
 
-                // Update the potato meter input field
-                potatoMeterInput.value = index + 1;
+                    // Submit the form
+                    e.target.submit();
+                });
             });
         });
-    });
     </script>
 </body>
 </html>

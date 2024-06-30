@@ -98,18 +98,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Registration</h1>
         <div class="form-group">
             <label class="col-sm-2 col-form-label" for="username">Username</label>
-            <input class="form-control" type="text" name="username" placeholder="Username">
-            <span style="color: red;"><?php echo $username_err; ?></span>
+            <input class="form-control" type="text" name="username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; }?>" placeholder="Username">
+            <span style="color: red;"><?php if(isset($_POST["username"])){ echo $username_err; } ?></span>
         </div>
         <div class="form-group"> 
             <label class="col-sm-2 col-form-label" for="email">Email</label>
-            <input class="form-control" type="email" name="email" placeholder="Email">
-            <span style="color: red;"><?php echo $email_err; ?></span>
+            <input class="form-control" type="email" name="email" value="<?php if(isset($_POST['email'])){ echo $_POST['email']; }?>" placeholder="Email">
+            <span style="color: red;"><?php if(isset($_POST["email"])){ echo $email_err; } ?></span>
         </div>
         <div class="form-group">
             <label class="col-sm-2 col-form-label" for="password">Password</label>
-            <input class="form-control" type="password" name="password" placeholder="Password">
-            <span style="color: red;"><?php echo $password_err; ?></span>
+            <input class="form-control" type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
+            <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
         </div>
         <div class="form-group">
             <label class="col-sm-2 col-form-label" for="confirm_password">Confirm&nbspPassword</label>

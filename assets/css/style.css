@@ -1,0 +1,8 @@
+.potato {
+    filter: grayscale(1);
+    cursor: pointer;
+}
+
+.potato.active {
+    filter: grayscale(0);
+}

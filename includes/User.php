@@ -38,7 +38,8 @@ class User
             */
             if ($isPasswordCorrect) {
                 $_SESSION['loggedin'] = true;
-                $_SESSION['username'] = $username;
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
                 return $user;
             }
         }
@@ -75,5 +76,33 @@ class User
     // For email availability
     public function emailAvailability($email) {
         return mysqli_query($this->dbh, "SELECT email FROM users WHERE email='$email'");
+    }
+
+    public function rateMovie($userId, $movieId, $potatoMeter) {
+        $userId = mysqli_real_escape_string($this->dbh, $userId);
+        $movieId = mysqli_real_escape_string($this->dbh, $movieId);
+        $potatoMeter = mysqli_real_escape_string($this->dbh, $potatoMeter);
+
+        // Check if a rating already exists
+        $result = mysqli_query($this->dbh, "SELECT * FROM movie_ratings WHERE user_id = '$userId' AND movie_id = '$movieId'");
+        if (mysqli_num_rows($result) > 0) {
+            // Update the existing rating
+            $query = "UPDATE movie_ratings SET potato_meter = '$potatoMeter' WHERE user_id = '$userId' AND movie_id = '$movieId'";
+        } else {
+            // Insert a new rating
+            $query = "INSERT INTO movie_ratings(user_id, movie_id, potato_meter) VALUES('$userId', '$movieId', '$potatoMeter')";
+        }
+
+        return mysqli_query($this->dbh, $query);
+    }
+
+    public function getUserPotatoMeter($userId, $movieId) {
+        $userId = mysqli_real_escape_string($this->dbh, $userId);
+        $movieId = mysqli_real_escape_string($this->dbh, $movieId);
+
+        $result = mysqli_query($this->dbh, "SELECT potato_meter FROM movie_ratings WHERE user_id = '$userId' AND movie_id = '$movieId'");
+        $potatoMeter = mysqli_fetch_assoc($result);
+
+        return $potatoMeter ? $potatoMeter['potato_meter'] : 0;
     }
 }

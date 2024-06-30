@@ -6,3 +6,12 @@
 .potato.active {
     filter: grayscale(0);
 }
+
+.movie_potato {
+    filter: grayscale(1);
+    cursor: pointer;
+}
+
+.movie_potato.active {
+    filter: grayscale(0);
+}

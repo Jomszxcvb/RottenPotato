@@ -79,22 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rotten Potato</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-    <style>
-        form{
-            margin: auto;
-            width: 450px;
-            margin-top: 3%;
-        }
-
-        .form-control{
-            border: none;
-        }
-    </style>
-<body>
+<body class="register">
     <?php include 'includes/navbar.php'; ?>
-
-    <form class="bg-opacity-75 p-3 mb-2 bg-dark text-white rounded" method="post">
+    <form class="p-3 mb-2 text-white rounded" method="post">
         <h1>Registration</h1>
         <div class="form-group">
             <label class="col-sm-2 col-form-label" for="username">Username</label>

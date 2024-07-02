@@ -20,6 +20,26 @@ class Movie
         return mysqli_query($this->dbh, "SELECT * FROM movie WHERE title LIKE '%$query%'");
     }
 
+    public function getMovieTrailerId($movie_id) {
+        $stmt = $this->dbh->prepare("SELECT trailer_id FROM movie WHERE movie_id = ?");
+        $stmt->bind_param("i", $movie_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $movie = $result->fetch_assoc();
+
+        return $movie['trailer_id'];
+    }
+
+    public function getMovieThumbnail($movie_id) {
+        $stmt = $this->dbh->prepare("SELECT thumbnail FROM movie WHERE movie_id = ?");
+        $stmt->bind_param("i", $movie_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $movie = $result->fetch_assoc();
+
+        return $movie['thumbnail'];
+    }
+
     public function getMovieTitle($id)
     {
         $id = mysqli_real_escape_string($this->dbh, $id);

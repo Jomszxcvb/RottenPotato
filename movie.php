@@ -9,7 +9,9 @@ $db = new DB();
 $movie = new Movie($db);
 $user = new User($db);
 
+$movie_thumbnail = $movie->getMovieThumbnail($_GET['movie_id']);
 $movie_title = $movie->getMovieTitle($_GET['movie_id']);
+$movie_trailer_id = $movie->getMovieTrailerId($_GET['movie_id']);
 $movie_synopsis = $movie->getMovieSynopsis($_GET['movie_id']);
 $movie_potato_meter = $movie->getPotatoMeter($_GET['movie_id']);
 
@@ -39,6 +41,8 @@ if (isset($_SESSION['user_id'])) {
     </form>
 
     <h1>Movie Details</h1>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $movie_trailer_id; ?>"></iframe>
+    <img src="assets/movie_thumbnails/<?php echo $movie_thumbnail; ?>" alt="<?php echo $movie_title;?>">
     <h2><?php echo $movie_title; ?></h2>
     <p><?php echo $movie_synopsis; ?></p>
     <p>Potato Meter:

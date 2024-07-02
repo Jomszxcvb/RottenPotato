@@ -17,7 +17,7 @@ class User
         /*
         echo "Hashed password: $password<br>"; // Debugging code
         */
-        $query = "INSERT INTO users(username, email, password) VALUES('$username', '$email', '$password')";
+        $query = "INSERT INTO user(username, email, password) VALUES('$username', '$email', '$password')";
         /*
         if (!$result) {
             echo "SQL error: " . mysqli_error($this->dbh) . "<br>"; // Debugging code
@@ -28,7 +28,7 @@ class User
 
     public function login($username, $password) {
         $username = mysqli_real_escape_string($this->dbh, $username);
-        $result = mysqli_query($this->dbh, "SELECT * FROM users WHERE username = '$username'");
+        $result = mysqli_query($this->dbh, "SELECT * FROM user WHERE username = '$username'");
         $user = mysqli_fetch_assoc($result);
 
         if ($user) {
@@ -68,30 +68,30 @@ class User
         exit;
     }
 
-    // For username availability
-    public function usernameAvailability($username) {
-        return mysqli_query($this->dbh, "SELECT username FROM users WHERE username='$username'");
-    }
-
-    // For email availability
-    public function emailAvailability($email) {
-        return mysqli_query($this->dbh, "SELECT email FROM users WHERE email='$email'");
-    }
-
     public function rateMovie($userId, $movieId, $potatoMeter) {
         $userId = mysqli_real_escape_string($this->dbh, $userId);
         $movieId = mysqli_real_escape_string($this->dbh, $movieId);
         $potatoMeter = mysqli_real_escape_string($this->dbh, $potatoMeter);
 
         // Check if a rating already exists
-        $result = mysqli_query($this->dbh, "SELECT * FROM movie_ratings WHERE user_id = '$userId' AND movie_id = '$movieId'");
+        $result = mysqli_query($this->dbh, "SELECT * FROM review WHERE user_id = '$userId' AND movie_id = '$movieId'");
         if (mysqli_num_rows($result) > 0) {
             // Update the existing rating
-            $query = "UPDATE movie_ratings SET potato_meter = '$potatoMeter' WHERE user_id = '$userId' AND movie_id = '$movieId'";
+            $query = "UPDATE review SET potato_meter = '$potatoMeter' WHERE user_id = '$userId' AND movie_id = '$movieId'";
         } else {
             // Insert a new rating
-            $query = "INSERT INTO movie_ratings(user_id, movie_id, potato_meter) VALUES('$userId', '$movieId', '$potatoMeter')";
+            $query = "INSERT INTO review(user_id, movie_id, potato_meter) VALUES('$userId', '$movieId', '$potatoMeter')";
         }
+
+        return mysqli_query($this->dbh, $query);
+    }
+
+    public function leaveReview($userId, $movieId, $reviewText) {
+        $userId = mysqli_real_escape_string($this->dbh, $userId);
+        $movieId = mysqli_real_escape_string($this->dbh, $movieId);
+        $reviewText = mysqli_real_escape_string($this->dbh, $reviewText);
+
+        $query = "INSERT INTO review(user_id, movie_id, review_text) VALUES('$userId', '$movieId', '$reviewText')";
 
         return mysqli_query($this->dbh, $query);
     }
@@ -100,9 +100,19 @@ class User
         $userId = mysqli_real_escape_string($this->dbh, $userId);
         $movieId = mysqli_real_escape_string($this->dbh, $movieId);
 
-        $result = mysqli_query($this->dbh, "SELECT potato_meter FROM movie_ratings WHERE user_id = '$userId' AND movie_id = '$movieId'");
+        $result = mysqli_query($this->dbh, "SELECT potato_meter FROM review WHERE user_id = '$userId' AND movie_id = '$movieId'");
         $potatoMeter = mysqli_fetch_assoc($result);
 
         return $potatoMeter ? $potatoMeter['potato_meter'] : 0;
+    }
+
+    // For username availability
+    public function usernameAvailability($username) {
+        return mysqli_query($this->dbh, "SELECT username FROM user WHERE username='$username'");
+    }
+
+    // For email availability
+    public function emailAvailability($email) {
+        return mysqli_query($this->dbh, "SELECT email FROM user WHERE email='$email'");
     }
 }

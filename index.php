@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-require_once 'includes/DB_con.php';
+require_once 'includes/DB.php';
 require_once 'includes/User.php';
 require_once  'includes/Movie.php';
 
-$DB = new DB_con();
+$DB = new DB();
 $User = new User($DB);
 $Movie = new Movie($DB);
 
@@ -74,7 +74,7 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
         <?php foreach ($movies as $movie): ?>
         <tr>
             <?php
-            $movie_id = htmlspecialchars($movie['id']);
+            $movie_id = htmlspecialchars($movie['movie_id']);
             $movie_title = htmlspecialchars($movie['title']);
             $movie_potato_meter = $Movie->getPotatoMeter($movie_id);
             ?>

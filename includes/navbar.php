@@ -24,7 +24,6 @@
         <div class="position-absolute end-0">
             <?php if (isset($_SESSION['loggedin'])): ?>
                     <a class="nav-link" href="logout.php">Logout</a>
-
             <?php else: ?>
                     <a class="nav-link" href="login.php">Login/SignUp</a>
             <?php endif; ?>

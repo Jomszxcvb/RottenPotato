@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body class="register">
     <?php include 'includes/navbar.php'; ?>
-    <form class="p-3 mb-2 text-white rounded" method="post">
+    <form class="p-3 mt-5 mb-2 text-white rounded mx-auto" method="post">
         <h1>Registration</h1>
         <div class="form-group">
             <label class="col-sm-2 col-form-label" for="username">Username</label>
@@ -106,6 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <span style="color: red;"><?php if(isset($_POST["confirm_password"])){ echo $confirm_password_err; } ?></span>
         </div><br>
         <input class="form-control bg-primary text-white" type="submit" value="Register">
+        <hr class="opacity-75 mt-4" />
         <p>Already have an account? <a href="login.php">Login here</a>.</p>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

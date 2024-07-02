@@ -55,7 +55,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     ?>
     <?php include 'includes/navbar.php'; ?>
-    <form class="p-3 mb-2 text-white rounded" method="post">
+    <form class="p-3 mt-5 mb-2 text-white rounded mx-auto" method="post">
         <h1>Login</h1>
         <div class="form-group">
             <label class="col-sm-2 col-form-label" for="username">Username</label>
@@ -68,6 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
         </div><br>
         <input class="form-control bg-primary text-white" type="submit" value="Login">
+        <hr class="opacity-75 mt-4" />
         <p>Don't have an account? <a href="register.php">Register here</a>.</p>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

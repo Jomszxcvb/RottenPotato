@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-require_once 'includes/DB_con.php';
+require_once 'includes/DB.php';
 require_once 'includes/Movie.php';
 require_once 'includes/User.php';
 
-$db = new DB_con();
+$db = new DB();
 $movie = new Movie($db);
 $user = new User($db);
 
@@ -45,9 +45,9 @@ if (isset($_SESSION['user_id'])) {
         <?php
         for($i = 0; $i < 5; $i++) {
             if ($i < floor($movie_potato_meter)) {
-                echo '<span class="movie_potato active"><img src="assets/potato/potato.svg"></span>';
+                echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>';
             } else {
-                echo '<span class="movie_potato"><img src="assets/potato/potato.svg"></span>';
+                echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
             }
         }
         echo " (" . round($movie_potato_meter, 1) . ")";
@@ -60,11 +60,11 @@ if (isset($_SESSION['user_id'])) {
         <form id="potato_rating" method="post" action="rate_movie.php">
             <input type="hidden" name="movie_id" value="<?php echo $_GET['movie_id']; ?>">
             <input type="hidden" id="potato_meter" name="potato_meter" value="">
-            <span class="potato" data-value="1"><img src="assets/potato/potato.svg"></span>
-            <span class="potato" data-value="2"><img src="assets/potato/potato.svg"></span>
-            <span class="potato" data-value="3"><img src="assets/potato/potato.svg"></span>
-            <span class="potato" data-value="4"><img src="assets/potato/potato.svg"></span>
-            <span class="potato" data-value="5"><img src="assets/potato/potato.svg"></span>
+            <span class="potato" data-value="1"><img src="assets/potato/potato.svg" alt="potato-meter-1"></span>
+            <span class="potato" data-value="2"><img src="assets/potato/potato.svg" alt="potato-meter-2"></span>
+            <span class="potato" data-value="3"><img src="assets/potato/potato.svg" alt="potato-meter-3"></span>
+            <span class="potato" data-value="4"><img src="assets/potato/potato.svg" alt="potato-meter-4"></span>
+            <span class="potato" data-value="5"><img src="assets/potato/potato.svg" alt="potato-meter-5"></span>
             <button type="submit">Submit Rating</button>
         </form>
     <?php else: ?>

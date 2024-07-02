@@ -1,10 +1,10 @@
 <?php
     session_start();
 
-    require_once 'includes/DB_con.php';
+    require_once 'includes/DB.php';
     require_once 'includes/User.php';
 
-    $db = new DB_con();
+    $db = new DB();
     $user = new User($db);
 
     if(isset($_POST['movie_id']) && isset($_POST['potato_meter']) && isset($_SESSION['user_id'])) {

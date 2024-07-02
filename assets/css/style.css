@@ -16,16 +16,12 @@
 
 .login form {
     background-color: rgba(0, 0, 0, 0.8);
-    margin: auto;
     width: 400px;
-    margin-top: 3%;
 }
 
 .register form {
     background-color: rgba(0, 0, 0, 0.8);
-    margin: auto;
     width: 450px;
-    margin-top: 3%;
 }
 
 .register .form-control, .login .form-control{
@@ -36,13 +32,16 @@
     background: #f0f0f0;
 }
 
-.about .about-us {
-    width: 100%;
-    padding: 20px;
+.about .container-fluid {
+    background-image: black;
+    height: 500px;
 }
 
 .about .container {
-   padding-top: 20px;
-   background: white;
    width: 80%;
+}
+
+.about .card{
+    width: 200px;
+    border: none;
 }

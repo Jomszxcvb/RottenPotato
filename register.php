@@ -83,32 +83,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body class="register">
     <?php include 'includes/navbar.php'; ?>
-    <form class="p-3 mt-5 mb-2 text-white rounded mx-auto" method="post">
-        <h1>Registration</h1>
-        <div class="form-group">
-            <label class="col-sm-2 col-form-label" for="username">Username</label>
-            <input class="form-control" type="text" name="username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; }?>" placeholder="Username">
-            <span style="color: red;"><?php if(isset($_POST["username"])){ echo $username_err; } ?></span>
+
+    <div class="main">
+        <div class="backgrounds-container">
+            <img class="showing background" src="assets/backgrounds/background 1.jpg">
         </div>
-        <div class="form-group"> 
-            <label class="col-sm-2 col-form-label" for="email">Email</label>
-            <input class="form-control" type="email" name="email" value="<?php if(isset($_POST['email'])){ echo $_POST['email']; }?>" placeholder="Email">
-            <span style="color: red;"><?php if(isset($_POST["email"])){ echo $email_err; } ?></span>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 col-form-label" for="password">Password</label>
-            <input class="form-control" type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
-            <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 col-form-label" for="confirm_password">Confirm&nbspPassword</label>
-            <input class="form-control" type="password" name="confirm_password" value="<?php if(isset($_POST['confirm_password'])){ echo $_POST['confirm_password']; }?>" placeholder="Confirm Password">
-            <span style="color: red;"><?php if(isset($_POST["confirm_password"])){ echo $confirm_password_err; } ?></span>
-        </div><br>
-        <input class="form-control bg-primary text-white" type="submit" value="Register">
-        <hr class="opacity-75 mt-4" />
-        <p>Already have an account? <a href="login.php">Login here</a>.</p>
-    </form>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <form class="p-3 text-white rounded mx-auto position-relative" method="post">
+            <h1>Registration</h1>
+            <div class="form-group">
+                <label class="col-sm-2 col-form-label" for="username">Username</label>
+                <input class="form-control" type="text" name="username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; }?>" placeholder="Username">
+                <span style="color: red;"><?php if(isset($_POST["username"])){ echo $username_err; } ?></span>
+            </div>
+            <div class="form-group"> 
+                <label class="col-sm-2 col-form-label" for="email">Email</label>
+                <input class="form-control" type="email" name="email" value="<?php if(isset($_POST['email'])){ echo $_POST['email']; }?>" placeholder="Email">
+                <span style="color: red;"><?php if(isset($_POST["email"])){ echo $email_err; } ?></span>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-form-label" for="password">Password</label>
+                <input class="form-control" type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
+                <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-form-label" for="confirm_password">Confirm&nbspPassword</label>
+                <input class="form-control" type="password" name="confirm_password" value="<?php if(isset($_POST['confirm_password'])){ echo $_POST['confirm_password']; }?>" placeholder="Confirm Password">
+                <span style="color: red;"><?php if(isset($_POST["confirm_password"])){ echo $confirm_password_err; } ?></span>
+            </div><br>
+            <input class="form-control bg-primary text-white" type="submit" value="Register">
+            <hr class="opacity-75 mt-4" />
+            <p>Already have an account? <a href="login.php">Login here</a>.</p>
+        </form>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
 </body>
 </html>

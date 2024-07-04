@@ -48,29 +48,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="login">
-    <?php
-        if (isset($_SESSION['registered'])) {
-            echo '<p>You have registered successfully!</p>';
-            unset($_SESSION['registered']); // Unset the session variable
-        }
-    ?>
     <?php include 'includes/navbar.php'; ?>
-    <form class="p-3 mt-5 mb-2 text-white rounded mx-auto" method="post">
-        <h1>Login</h1>
-        <div class="form-group">
-            <label class="col-sm-2 col-form-label" for="username">Username</label>
-            <input class="form-control" type="text" name="username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; }?>" placeholder="Username">
-            <span style="color: red;"><?php if(isset($_POST["username"])){ echo $username_err; } ?></span>
+    <div class="main">
+        <div class="backgrounds-container">
+            <img class="showing background" src="assets/backgrounds/background 1.jpg">
         </div>
-        <div class="form-group"> 
-            <label class="col-sm-2 col-form-label" for="password">Password</label>
-            <input class="form-control" type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
-            <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
-        </div><br>
-        <input class="form-control bg-primary text-white" type="submit" value="Login">
-        <hr class="opacity-75 mt-4" />
-        <p>Don't have an account? <a href="register.php">Register here</a>.</p>
-    </form>
+        <form class="p-3 text-white rounded" method="post">
+            <h1>Login</h1>
+            <?php
+                if (isset($_SESSION['registered'])) {
+                    echo '<p>You have registered successfully!</p>';
+                    unset($_SESSION['registered']); // Unset the session variable
+                }
+            ?>
+            <div class="form-group">
+                <label class="col-sm-2 col-form-label" for="username">Username</label>
+                <input class="form-control" type="text" name="username" value="<?php if(isset($_POST['username'])){ echo $_POST['username']; }?>" placeholder="Username">
+                <span style="color: red;"><?php if(isset($_POST["username"])){ echo $username_err; } ?></span>
+            </div>
+            <div class="form-group"> 
+                <label class="col-sm-2 col-form-label" for="password">Password</label>
+                <input class="form-control" type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
+                <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
+            </div><br>
+            <input class="form-control bg-primary text-white" type="submit" value="Login">
+            <hr class="opacity-75 mt-4" />
+            <p>Don't have an account? <a href="register.php">Register here</a>.</p>
+        </form>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

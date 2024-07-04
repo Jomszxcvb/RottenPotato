@@ -1,4 +1,4 @@
-<div class="d-flex bg-light justify-content-center" style="width:100%;" >
+<div class="nav d-flex justify-content-center" style="width: 100%;background:#eaeaea;" >
     <nav class="navbar navbar-expand-lg navbar-light" style="width:85%;">
         <div clas="start-0">
             <a class="navbar-brand" href="/index.php">Rotten Potato</a>

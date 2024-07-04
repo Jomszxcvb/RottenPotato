@@ -14,28 +14,8 @@
 <body class="about">
     <?php include 'includes/navbar.php'; ?>
     <div class="container-fluid bg-black p-3 text-white">
-        <div class="container text-center mb-5">
+        <div class="container text-center">
             <h1>About Us</h1>
-        </div>
-        <div class="container d-flex justify-content-around">
-            <div class="card">
-                <img src="assets/movie_thumbnails/Parasite (2019).jpeg" alt="Parasite">
-                <div class="container text-center p-2">
-                    <h6><b>Parasite</b></h6> 
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/movie_thumbnails/Toy Story 4 (2019).jpeg" alt="Toy Story 4">
-                <div class="container text-center p-2">
-                    <h6><b>Toy Story 4</b></h6> 
-                </div>
-            </div>
-            <div class="card">
-                <img src="assets/movie_thumbnails/The Lion King (2019).png" alt="The Lion King">
-                <div class="container text-center p-2">
-                    <h6><b>The Lion King</b></h6> 
-                </div>
-            </div>
         </div>
     </div>
     <div class="container pb-5 mt-3 bg-white mx-auto">

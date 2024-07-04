@@ -39,30 +39,34 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rotten Potato</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="index">
     <?php include 'includes/navbar.php'; ?>
-    <h1>Welcome to Rotten Potato!</h1>
+    <div class="container-xxl text-center">
+        <div class="mb-5">
+            <?php
+            if (!isset($_SESSION['user_id'])) {
+                echo "You are not logged in.";
+            } else {
+                echo "You are logged in as " . $_SESSION['username'] . "!";
+                // echo "Your user ID is " . $_SESSION['user_id'] . "."; // Uncomment this line to see the user ID
+            } ?>
+        </div>
+        <div class="pt-4">
+            <h1>Welcome to Rotten Potato!</h1>
+        </div>
+        <div class="mt-3">
+            <form class="search-bar p-2 d-flex mx-auto" action="" method="get">
+                <input type="text" name="search" value="<?php if(isset($_GET["search"])){ echo $_GET["search"]; }?>" placeholder="Search for movies...">
+                <button type="submit">Search</button>
+            </form>
+            <?php if (empty($movies)): ?>
+                <p>No movies found.</p>
+            <?php else: ?>
+        </div>
+    </div>
 
-    <?php
-    if (!isset($_SESSION['user_id'])) {
-        echo "You are not logged in.";
-    } else {
-        echo "You are logged in as " . $_SESSION['username'] . "!";
-        // echo "Your user ID is " . $_SESSION['user_id'] . "."; // Uncomment this line to see the user ID
-    }
-    ?>
-
-    <form action="" method="get">
-        <label for="search">Search for movies</label>
-        <input type="text" name="search" value="<?php if(isset($_GET["search"])){ echo $_GET["search"]; }?>" placeholder="Search for movies">
-        <button type="submit">Search</button>
-    </form>
-
-    <?php if (empty($movies)): ?>
-        <p>No movies found.</p>
-    <?php else: ?>
     <table>
         <thead>
             <tr>
@@ -97,7 +101,7 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
     </tbody>
     </table>
     <?php endif; ?>
-
+    
     <?php if (!empty($movies)): ?>
         <div class="pagination">
             <?php if ($current_page > 1): ?>

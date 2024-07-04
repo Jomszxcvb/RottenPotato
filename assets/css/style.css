@@ -49,3 +49,32 @@
 .about .potato {
     filter: brightness(0) invert(1);
 }
+
+.index .container-xxl {
+    height: 400px;
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('assets/movie_thumbnails/Avengers- Endgame (2019).jpg');
+    background-size: cover;
+    color: #FFFFF3;
+}
+
+.index .search-bar {
+    height: 40px;
+    width: 500px;
+    align-items: center;
+    border-radius: 28px;
+    background: #3f4e54;
+    border: 1.5px solid white;
+}
+
+.index .search-bar input {
+    font-size: 16px;
+    color: #f6f6f6;
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 500px;
+}
+
+.index .search-bar input::placeholder {
+    color: #f6f6f6c8;
+}

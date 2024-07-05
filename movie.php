@@ -52,7 +52,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="d-flex">
             <img class="thumbnail" src="assets/movie_thumbnails/<?php echo $movie_thumbnail; ?>" alt="<?php echo $movie_title;?>">
             <div class="ms-3 d-5">
-                <h1 id="title"><?php echo $movie_title; ?></h2>
+                <h2 id="title"><?php echo $movie_title; ?></h2>
                 <p id="synopsis"><?php echo $movie_synopsis; ?></p>
             </div>
         </div>

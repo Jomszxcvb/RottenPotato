@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="about">
-    <?php include 'includes/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
     <div class="container-fluid bg-black p-3 text-white">
         <div class="container text-center">
             <h1>About Us</h1>

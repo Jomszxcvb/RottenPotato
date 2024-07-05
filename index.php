@@ -43,7 +43,7 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="index">
-    <?php include 'includes/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
 
     <div class="welcome-area text-center container-fluid">

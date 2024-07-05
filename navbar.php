@@ -1,6 +1,6 @@
 <div class="nav d-flex justify-content-center" style="width: 100%;background:#eaeaea;" >
     <nav class="navbar navbar-expand-lg navbar-light" style="width:85%;">
-        <div clas="start-0">
+        <div class="start-0">
             <a class="navbar-brand" href="/index.php">Rotten Potato</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

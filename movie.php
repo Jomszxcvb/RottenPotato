@@ -70,7 +70,7 @@ if (isset($_SESSION['user_id'])) {
         </p>
         <hr>
         <div class="rating container text-center">
-            <p class="rate-label"><b>Rate this movie</b></p>
+            <p class="rate-label"><b>Share your Rating and Review</b></p>
             <?php if(isset($_SESSION['user_id'])): ?>
                 <form id="potato_rating" method="post" action="rate_movie.php">
                     <input type="hidden" name="movie_id" value="<?php echo $_GET['movie_id']; ?>">
@@ -80,12 +80,12 @@ if (isset($_SESSION['user_id'])) {
                     <span class="potato" data-value="3"><img src="assets/potato/potato.svg" alt="potato-meter-3"></span>
                     <span class="potato" data-value="4"><img src="assets/potato/potato.svg" alt="potato-meter-4"></span>
                     <span class="potato" data-value="5"><img src="assets/potato/potato.svg" alt="potato-meter-5"></span>
-                    <textarea name="review" class="form-control mt-3" placeholder="Leave a review..."></textarea>
-                    <button  class="form-control mx-auto mt-5" type="submit">Submit Rating</button>
+                    <textarea name="review" class="form-control mx-auto mt-3" id="review" placeholder="Leave a review..."></textarea>
+                    <button  class="form-control mx-auto mt-3" id="submit-rating" type="submit">Submit</button>
                 </form>
             <?php else: ?>
                 <p class="login-notice">
-                    Please<a class="ms-1" href="login.php">log in</a> to rate this movie.
+                    Please<a class="ms-1" href="login.php">log in</a> to rate and review this movie.
                 </p>
             <?php endif; ?>
         </div>

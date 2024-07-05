@@ -80,6 +80,7 @@ if (isset($_SESSION['user_id'])) {
                     <span class="potato" data-value="3"><img src="assets/potato/potato.svg" alt="potato-meter-3"></span>
                     <span class="potato" data-value="4"><img src="assets/potato/potato.svg" alt="potato-meter-4"></span>
                     <span class="potato" data-value="5"><img src="assets/potato/potato.svg" alt="potato-meter-5"></span>
+                    <textarea name="review" class="form-control mt-3" placeholder="Leave a review..."></textarea>
                     <button  class="form-control mx-auto mt-5" type="submit">Submit Rating</button>
                 </form>
             <?php else: ?>

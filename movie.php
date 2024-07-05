@@ -28,53 +28,73 @@ if (isset($_SESSION['user_id'])) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rotten Potato</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="movie">
     <?php include 'includes/navbar.php'; ?>
-
-    <form action="index.php" method="get">
-        <label for="search">Search for movies</label>
-        <input type="text" name="search" value="<?php if(isset($_GET["search"])){ echo $_GET["search"]; }?>" placeholder="Search for movies">
-        <button type="submit">Search</button>
-    </form>
-
-    <h1>Movie Details</h1>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php echo $movie_trailer_id; ?>"></iframe>
-    <img src="assets/movie_thumbnails/<?php echo $movie_thumbnail; ?>" alt="<?php echo $movie_title;?>">
-    <h2><?php echo $movie_title; ?></h2>
-    <p><?php echo $movie_synopsis; ?></p>
-    <p>Potato Meter:
-        <?php
-        for($i = 0; $i < 5; $i++) {
-            if ($i < floor($movie_potato_meter)) {
-                echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>';
-            } else {
-                echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
+    <div class="main">
+    <div class="search-area container-xxl">
+        <div class="mt-4">
+            <form class="search-bar p-2 d-flex mx-auto" action="index.php" method="get">
+                <button class="fa-solid fa-magnifying-glass" type="submit"></button>
+                <input type="text" name="search" value="<?php if(isset($_GET["search"])){ echo $_GET["search"]; }?>" placeholder="Search for other movies...">
+            </form>
+        </div>
+    </div>
+    <div class="container-xl text-center mt-3">
+        <h1>Movie Details</h1>
+        <iframe width="100%" height="761.25" src="https://www.youtube.com/embed/<?php echo $movie_trailer_id; ?>"></iframe>
+    </div>
+    <div class="container-xl pb-3">
+        <hr>
+        <div class="d-flex">
+            <img class="thumbnail" src="assets/movie_thumbnails/<?php echo $movie_thumbnail; ?>" alt="<?php echo $movie_title;?>">
+            <div class="ms-3 d-5">
+                <h1 id="title"><?php echo $movie_title; ?></h2>
+                <p id="synopsis"><?php echo $movie_synopsis; ?></p>
+            </div>
+        </div>
+        <p class="ms-4"><b>Potato Meter:
+            <?php
+            for($i = 0; $i < 5; $i++) {
+                if ($i < floor($movie_potato_meter)) {
+                    echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>';
+                } else {
+                    echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
+                }
             }
-        }
-        echo " (" . round($movie_potato_meter, 1) . ")";
-
-        ?>
-    </p>
-
-    <?php if(isset($_SESSION['user_id'])): ?>
-        <p>Rate this movie:</p>
-        <form id="potato_rating" method="post" action="rate_movie.php">
-            <input type="hidden" name="movie_id" value="<?php echo $_GET['movie_id']; ?>">
-            <input type="hidden" id="potato_meter" name="potato_meter" value="">
-            <span class="potato" data-value="1"><img src="assets/potato/potato.svg" alt="potato-meter-1"></span>
-            <span class="potato" data-value="2"><img src="assets/potato/potato.svg" alt="potato-meter-2"></span>
-            <span class="potato" data-value="3"><img src="assets/potato/potato.svg" alt="potato-meter-3"></span>
-            <span class="potato" data-value="4"><img src="assets/potato/potato.svg" alt="potato-meter-4"></span>
-            <span class="potato" data-value="5"><img src="assets/potato/potato.svg" alt="potato-meter-5"></span>
-            <button type="submit">Submit Rating</button>
-        </form>
-    <?php else: ?>
-        <p>Please <a href="login.php">log in</a> to rate this movie.</p>
-    <?php endif; ?>
-    <p><a href="index.php">Back to movies</a></p>
+            echo " &nbsp(" . round($movie_potato_meter, 1) . ")</b>";
+            ?>
+        </p>
+        <hr>
+        <div class="rating container text-center">
+            <p class="rate-label"><b>Rate this movie</b></p>
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <form id="potato_rating" method="post" action="rate_movie.php">
+                    <input type="hidden" name="movie_id" value="<?php echo $_GET['movie_id']; ?>">
+                    <input type="hidden" id="potato_meter" name="potato_meter" value="">
+                    <span class="potato" data-value="1"><img src="assets/potato/potato.svg" alt="potato-meter-1"></span>
+                    <span class="potato" data-value="2"><img src="assets/potato/potato.svg" alt="potato-meter-2"></span>
+                    <span class="potato" data-value="3"><img src="assets/potato/potato.svg" alt="potato-meter-3"></span>
+                    <span class="potato" data-value="4"><img src="assets/potato/potato.svg" alt="potato-meter-4"></span>
+                    <span class="potato" data-value="5"><img src="assets/potato/potato.svg" alt="potato-meter-5"></span>
+                    <button  class="form-control mx-auto mt-5" type="submit">Submit Rating</button>
+                </form>
+            <?php else: ?>
+                <p class="login-notice">
+                    Please<a class="ms-1" href="login.php">log in</a> to rate this movie.
+                </p>
+            <?php endif; ?>
+        </div>
+        <div class="mt-5">
+            <a class="back text-decoration-none" href="index.php">
+                <i class="fa-solid fa-arrow-left"></i>&nbspBack to movies
+            </a>
+        </div>
+    </div>    
+    </div>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {

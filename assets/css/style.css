@@ -15,16 +15,16 @@
 }
 
 .login form {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.853);
     width: 400px;
-    animation: fade-up 0.2s;
+    animation: fade-up 0.4s;
     margin-top: -100px;
 }
 
 .register form {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.853);
     width: 450px;
-    animation: fade-up 0.2s;
+    animation: fade-up 0.4s;
     margin-top: -100px;
 }
 
@@ -111,7 +111,7 @@
     background-position: center;
 }
 
-.index .search-bar {
+.index .search-bar{
     position: relative;
     height: 40px;
     width: 600px;
@@ -119,6 +119,16 @@
     border-radius: 28px;
     border: 1.5px solid rgb(135, 133, 133);
     animation: fade-up 0.7s;
+}
+
+.movie .search-bar {
+    position: relative;
+    height: 50px;
+    width: 700px;
+    align-items: center;
+    border-radius: 28px;
+    border: 1.5px solid rgb(135, 133, 133);
+    animation: fade-up 0.5s;
 }
 
 .index .search-bar input {
@@ -130,7 +140,16 @@
     width: 600px;
 }
 
-.index .fa-solid {
+.movie .search-bar input {
+    font-size: 16px;
+    color: rgb(47, 46, 46);
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 700px;
+}
+
+.index .fa-solid, .movie .fa-solid {
     background: none;
     border: none;
     padding: 1px;
@@ -191,4 +210,66 @@
 
 .index .pagination a:hover {
     color: gray;
+}
+
+.movie .main {
+    animation: fade-up 0.5s;
+}
+
+.movie .thumbnail {
+    height: 400px;
+    width: 288.5px;
+}
+
+.movie #title {
+    font-size: 50px;
+}
+
+.movie #synopsis {
+    font-size: 20px;
+}
+
+.movie .form-control {
+    width: 200px;
+}
+
+.movie .rating .rate-label {
+    font-size: 30px;
+}
+
+.movie .potato img{
+    width: 30px;
+}
+
+.movie .form-control {
+    border: none;
+    height: 40px;
+    width: 300px;
+    background: black;
+    color: white;
+}
+
+.movie .form-control:hover {
+    background: rgb(67, 67, 67);
+}
+
+.movie .back{
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+}
+
+.movie .back:hover{
+    color: rgb(76, 76, 76);
+}
+
+.movie .login-notice {
+    font-size: 20px;
+}
+
+.movie .login-notice a:hover{
+    color: red
+}
+
+.movie .back .fa-solid {
+    color: inherit;
 }

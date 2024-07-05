@@ -13,45 +13,30 @@ class User
     }
 
     public function register($username, $email, $password) {
-        $password = password_hash($password, PASSWORD_DEFAULT);
-        /*
-        echo "Hashed password: $password<br>"; // Debugging code
-        */
-        $query = "INSERT INTO user(username, email, password) VALUES('$username', '$email', '$password')";
-        /*
-        if (!$result) {
-            echo "SQL error: " . mysqli_error($this->dbh) . "<br>"; // Debugging code
-        }
-        */
-        return mysqli_query($this->dbh, $query);
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $stmt = $this->dbh->prepare("INSERT INTO user(username, email, password) VALUES(?, ?, ?)");
+        $stmt->bind_param("sss", $username, $email, $passwordHash);
+        return $stmt->execute();
     }
 
     public function login($username, $password) {
-        $username = mysqli_real_escape_string($this->dbh, $username);
-        $result = mysqli_query($this->dbh, "SELECT * FROM user WHERE username = '$username'");
-        $user = mysqli_fetch_assoc($result);
+        $stmt = $this->dbh->prepare("SELECT * FROM user WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
 
-        if ($user) {
-            $isPasswordCorrect = password_verify($password, $user['password']);
-            /*
-            echo "Password verify result: $isPasswordCorrect<br>"; // Debugging code
-            */
-            if ($isPasswordCorrect) {
-                $_SESSION['loggedin'] = true;
-                $_SESSION['user_id'] = $user['user_id'];
-                $_SESSION['username'] = $user['username'];
-                return $user;
-            }
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['loggedin'] = true;
+            $_SESSION['user_id'] = $user['user_id'];
+            $_SESSION['username'] = $user['username'];
+            return $user;
         }
         return false;
     }
 
     public function logout() {
-        // Unset all of the session variables
         $_SESSION = array();
-
-        // If it's desired to kill the session, also delete the session cookie.
-        // Note: This will destroy the session, and not just the session data!
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
             setcookie(session_name(), '', time() - 42000,
@@ -59,67 +44,70 @@ class User
                 $params["secure"], $params["httponly"]
             );
         }
-
-        // Finally, destroy the session.
         session_destroy();
-
-        // Redirect to the index page after logout
         header("Location: index.php");
         exit;
     }
 
-    public function rateMovie($user_id, $movie_id, $rating): bool {
+    public function leaveReview($user_id, $movie_id, $rating, $review): bool {
         // Validate the rating
         if ($rating === '' || !is_numeric($rating) || $rating < 1 || $rating > 5) {
-            // Handle invalid rating value appropriately
             // Handle invalid rating value appropriately
             return false;
         }
 
-        // Check if the review already exists
-        $query = "SELECT * FROM review WHERE user_id = '$user_id' AND movie_id = '$movie_id'";
-        $result = mysqli_query($this->dbh, $query);
+        // Prepare the query to check if the review already exists
+        $stmt = $this->dbh->prepare("SELECT * FROM review WHERE user_id = ? AND movie_id = ?");
+        $stmt->bind_param("ii", $user_id, $movie_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        if ($result && mysqli_num_rows($result) > 0) {
-            // Update the existing review
-            $updateQuery = "UPDATE review SET potato_meter = '$rating', review_date = NOW() WHERE user_id = '$user_id' AND movie_id = '$movie_id'";
+        if ($result->num_rows > 0) {
+            // Prepare the query to update the existing review
+            $updateStmt = $this->dbh->prepare("UPDATE review SET potato_meter = ?, review = ?, review_date = NOW() WHERE user_id = ? AND movie_id = ?");
+            $updateStmt->bind_param("isii", $rating, $review, $user_id, $movie_id);
         } else {
-            // Insert a new review
-            $updateQuery = "INSERT INTO review (user_id, movie_id, potato_meter, review_date) VALUES ('$user_id', '$movie_id', '$rating', NOW())";
+            // Prepare the query to insert a new review
+            $insertStmt = $this->dbh->prepare("INSERT INTO review (user_id, movie_id, potato_meter, review, review_date) VALUES (?, ?, ?, ?, NOW())");
+            $insertStmt->bind_param("iiis", $user_id, $movie_id, $rating, $review);
         }
 
-        $updateResult = mysqli_query($this->dbh, $updateQuery);
+        // Execute the appropriate query
+        if (isset($updateStmt) && !$updateStmt->execute()) {
+            // Handle error
+            return false;
+        } elseif (isset($insertStmt) && !$insertStmt->execute()) {
+            // Handle error
+            return false;
+        }
 
-        return (bool)$updateResult;
-    }
-
-    public function leaveReview($userId, $movieId, $reviewText) {
-        $userId = mysqli_real_escape_string($this->dbh, $userId);
-        $movieId = mysqli_real_escape_string($this->dbh, $movieId);
-        $reviewText = mysqli_real_escape_string($this->dbh, $reviewText);
-
-        $query = "INSERT INTO review(user_id, movie_id, review_text) VALUES('$userId', '$movieId', '$reviewText')";
-
-        return mysqli_query($this->dbh, $query);
+        return true;
     }
 
     public function getUserPotatoMeter($userId, $movieId) {
-        $userId = mysqli_real_escape_string($this->dbh, $userId);
-        $movieId = mysqli_real_escape_string($this->dbh, $movieId);
-
-        $result = mysqli_query($this->dbh, "SELECT potato_meter FROM review WHERE user_id = '$userId' AND movie_id = '$movieId'");
-        $potatoMeter = mysqli_fetch_assoc($result);
-
+        $stmt = $this->dbh->prepare("SELECT potato_meter FROM review WHERE user_id = ? AND movie_id = ?");
+        $stmt->bind_param("ii", $userId, $movieId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $potatoMeter = $result->fetch_assoc();
         return $potatoMeter ? $potatoMeter['potato_meter'] : 0;
     }
 
     // For username availability
-    public function usernameAvailability($username) {
-        return mysqli_query($this->dbh, "SELECT username FROM user WHERE username='$username'");
+    public function usernameAvailability($username): bool {
+        $stmt = $this->dbh->prepare("SELECT username FROM user WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows === 0;
     }
 
     // For email availability
-    public function emailAvailability($email) {
-        return mysqli_query($this->dbh, "SELECT email FROM user WHERE email='$email'");
+    public function emailAvailability($email): bool {
+        $stmt = $this->dbh->prepare("SELECT email FROM user WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->num_rows === 0;
     }
 }

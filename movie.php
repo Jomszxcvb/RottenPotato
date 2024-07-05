@@ -33,7 +33,7 @@ if (isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="movie">
-    <?php include 'includes/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
     <div class="main">
     <div class="search-area container-xxl">
         <div class="mt-4">

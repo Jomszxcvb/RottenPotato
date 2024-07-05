@@ -82,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="register">
-    <?php include 'includes/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
 
     <div class="main">
         <div class="backgrounds-container">

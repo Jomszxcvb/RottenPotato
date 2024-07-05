@@ -48,7 +48,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="login">
-    <?php include 'includes/navbar.php'; ?>
+    <?php include 'navbar.php'; ?>
+
     <div class="main">
         <div class="backgrounds-container">
             <img class="showing background" src="assets/backgrounds/background 1.jpg">

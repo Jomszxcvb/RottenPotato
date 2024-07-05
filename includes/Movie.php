@@ -67,6 +67,25 @@ class Movie
         return $movie ? $movie['avg_potato_meter'] : null;
     }
 
+    public function getRecentReviews($movie_id, $limit = 5) {
+        $stmt = $this->dbh->prepare("
+            SELECT r.potato_meter, r.review, r.review_date, u.username 
+            FROM review r
+            JOIN user u ON r.user_id = u.user_id
+            WHERE r.movie_id = ?
+            ORDER BY r.review_date DESC
+            LIMIT ?
+        ");
+        $stmt->bind_param("ii", $movie_id, $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $reviews = [];
+        while ($row = $result->fetch_assoc()) {
+            $reviews[] = $row;
+        }
+        return $reviews;
+    }
+
     public function getTotalMovies($search = null) {
         $sql = "SELECT COUNT(*) as count FROM movie";
         if ($search) {

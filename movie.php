@@ -14,6 +14,7 @@ $movie_title = $movie->getMovieTitle($_GET['movie_id']);
 $movie_trailer_id = $movie->getMovieTrailerId($_GET['movie_id']);
 $movie_synopsis = $movie->getMovieSynopsis($_GET['movie_id']);
 $movie_potato_meter = $movie->getPotatoMeter($_GET['movie_id']);
+$recentReviews = $movie->getRecentReviews($_GET['movie_id']);
 
 if (isset($_SESSION['user_id'])) {
     $userPotatoMeter = $user->getUserPotatoMeter($_SESSION['user_id'], $_GET['movie_id']);
@@ -45,7 +46,7 @@ if (isset($_SESSION['user_id'])) {
     </div>
     <div class="container-xl text-center mt-3">
         <h1>Movie Details</h1>
-        <iframe width="100%" height="761.25" src="https://www.youtube.com/embed/<?php echo $movie_trailer_id; ?>"></iframe>
+        <iframe width="100%" height="761.25" src="https://www.youtube.com/embed/<?php echo $movie_trailer_id; ?>?autoplay=1" allow="autoplay"></iframe>
     </div>
     <div class="container-xl pb-3">
         <hr>
@@ -89,6 +90,29 @@ if (isset($_SESSION['user_id'])) {
                 </p>
             <?php endif; ?>
         </div>
+        <h3>Recent Reviews</h3>
+        <?php if (!empty($recentReviews)): ?>
+            <?php foreach ($recentReviews as $review): ?>
+                <div class="review">
+                    <p class="review-info">Rating:
+                        <?php
+                        for($i = 0; $i < 5; $i++) {
+                            if ($i < floor($review["potato_meter"])) {
+                                echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>';
+                            } else {
+                                echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
+                            }
+                        }
+                        echo " &nbsp(" . round($movie_potato_meter, 1) . ")</b>";
+                        ?>
+                    </p>
+                    <p><?= htmlspecialchars($review['username']); ?> on <?= htmlspecialchars($review['review_date']); ?></p>
+                    <p class="review-text"><?= htmlspecialchars($review['review']); ?></p>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No recent reviews.</p>
+        <?php endif; ?>
         <div class="mt-5">
             <a class="back text-decoration-none" href="index.php">
                 <i class="fa-solid fa-arrow-left"></i>&nbspBack to movies

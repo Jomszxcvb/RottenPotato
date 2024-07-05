@@ -16,18 +16,19 @@ class Movie
 
     public function searchMovies($query)
     {
-        $query = mysqli_real_escape_string($this->dbh, $query);
-        return mysqli_query($this->dbh, "SELECT * FROM movie WHERE title LIKE '%$query%'");
+        $stmt = $this->dbh->prepare("SELECT * FROM movie WHERE title LIKE CONCAT('%', ?, '%')");
+        $stmt->bind_param("s", $query);
+        if (!$stmt->execute()) {
+            return false; // Handle error appropriately
+        }
+        return $stmt->get_result();
     }
 
     public function getMovieTrailerId($movie_id) {
         $stmt = $this->dbh->prepare("SELECT trailer_id FROM movie WHERE movie_id = ?");
         $stmt->bind_param("i", $movie_id);
         $stmt->execute();
-        $result = $stmt->get_result();
-        $movie = $result->fetch_assoc();
-
-        return $movie['trailer_id'];
+        return $stmt->get_result()->fetch_assoc()['trailer_id'];
     }
 
     public function getMovieThumbnail($movie_id) {
@@ -40,11 +41,13 @@ class Movie
         return $movie['thumbnail'];
     }
 
-    public function getMovieTitle($id)
+    public function getMovieTitle($movie_id)
     {
-        $id = mysqli_real_escape_string($this->dbh, $id);
-        $result = mysqli_query($this->dbh, "SELECT title FROM movie WHERE movie_id = '$id'");
-        $movie = mysqli_fetch_assoc($result);
+        $stmt = $this->dbh->prepare("SELECT title FROM movie WHERE movie_id = ?");
+        $stmt->bind_param("i", $movie_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $movie = $result->fetch_assoc();
         return $movie['title'];
     }
 

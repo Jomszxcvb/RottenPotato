@@ -68,22 +68,29 @@ class User
         exit;
     }
 
-    public function rateMovie($userId, $movieId, $potatoMeter) {
-        $userId = mysqli_real_escape_string($this->dbh, $userId);
-        $movieId = mysqli_real_escape_string($this->dbh, $movieId);
-        $potatoMeter = mysqli_real_escape_string($this->dbh, $potatoMeter);
-
-        // Check if a rating already exists
-        $result = mysqli_query($this->dbh, "SELECT * FROM review WHERE user_id = '$userId' AND movie_id = '$movieId'");
-        if (mysqli_num_rows($result) > 0) {
-            // Update the existing rating
-            $query = "UPDATE review SET potato_meter = '$potatoMeter' WHERE user_id = '$userId' AND movie_id = '$movieId'";
-        } else {
-            // Insert a new rating
-            $query = "INSERT INTO review(user_id, movie_id, potato_meter) VALUES('$userId', '$movieId', '$potatoMeter')";
+    public function rateMovie($user_id, $movie_id, $rating): bool {
+        // Validate the rating
+        if ($rating === '' || !is_numeric($rating) || $rating < 1 || $rating > 5) {
+            // Handle invalid rating value appropriately
+            // Handle invalid rating value appropriately
+            return false;
         }
 
-        return mysqli_query($this->dbh, $query);
+        // Check if the review already exists
+        $query = "SELECT * FROM review WHERE user_id = '$user_id' AND movie_id = '$movie_id'";
+        $result = mysqli_query($this->dbh, $query);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            // Update the existing review
+            $updateQuery = "UPDATE review SET potato_meter = '$rating', review_date = NOW() WHERE user_id = '$user_id' AND movie_id = '$movie_id'";
+        } else {
+            // Insert a new review
+            $updateQuery = "INSERT INTO review (user_id, movie_id, potato_meter, review_date) VALUES ('$user_id', '$movie_id', '$rating', NOW())";
+        }
+
+        $updateResult = mysqli_query($this->dbh, $updateQuery);
+
+        return (bool)$updateResult;
     }
 
     public function leaveReview($userId, $movieId, $reviewText) {

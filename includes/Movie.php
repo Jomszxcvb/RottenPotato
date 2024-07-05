@@ -64,25 +64,6 @@ class Movie
         return $movie ? $movie['avg_potato_meter'] : null;
     }
 
-    public function savePotatoMeter($userId, $movieId, $potatoMeter)
-    {
-        $userId = mysqli_real_escape_string($this->dbh, $userId);
-        $movieId = mysqli_real_escape_string($this->dbh, $movieId);
-        $potatoMeter = mysqli_real_escape_string($this->dbh, $potatoMeter);
-
-        // Check if a rating already exists
-        $result = mysqli_query($this->dbh, "SELECT * FROM review WHERE user_id = '$userId' AND movie_id = '$movieId'");
-        if (mysqli_num_rows($result) > 0) {
-            // Update the existing rating
-            $query = "UPDATE review SET potato_meter = '$potatoMeter' WHERE user_id = '$userId' AND movie_id = '$movieId'";
-        } else {
-            // Insert a new rating
-            $query = "INSERT INTO review(user_id, movie_id, potato_meter) VALUES('$userId', '$movieId', '$potatoMeter')";
-        }
-
-        return mysqli_query($this->dbh, $query);
-    }
-
     public function getTotalMovies($search = null) {
         $sql = "SELECT COUNT(*) as count FROM movie";
         if ($search) {

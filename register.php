@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <hr class="opacity-75 mt-4" />
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -38,7 +38,7 @@ class User
             */
             if ($isPasswordCorrect) {
                 $_SESSION['loggedin'] = true;
-                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_id'] = $user['user_id'];
                 $_SESSION['username'] = $user['username'];
                 return $user;
             }

@@ -11,8 +11,9 @@
         $movie_id = $_POST['movie_id'];
         $rating = $_POST['potato_meter'];
         $user_id = $_SESSION['user_id'];
+        $review = $_POST['review'];
 
-        $user->rateMovie($user_id, $movie_id, $rating);
+        $user->leaveReview($user_id, $movie_id, $rating, $review);
 
         header('Location: movie.php?movie_id=' . $movie_id);
     } else {

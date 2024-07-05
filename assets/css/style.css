@@ -255,10 +255,10 @@
 }
 
 .movie #submit-rating:hover{
-    background: rgb(61, 61, 61);
+    background: rgb(76, 76, 76);
 }
 
-.movie #review {rgb(70, 70, 70)
+.movie #review {
     font-size: 18px;
     color: black;
     border: 2px solid black;

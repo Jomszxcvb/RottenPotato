@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2024 at 09:59 AM
+-- Generation Time: Jul 06, 2024 at 12:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -53,7 +53,10 @@ INSERT INTO `movie` (`movie_id`, `thumbnail`, `trailer_id`, `title`, `synopsis`)
 (11, 'Alita- Battle Angel (2019).jpeg', 'w7pYhpJaJW8', 'Alita: Battle Angel', 'When Alita awakens with no memory of who she is in a future world she does not recognize, she is taken in by Ido, a compassionate doctor who realizes that somewhere in this abandoned cyborg shell is the heart and soul of a young woman with an extraordinary past.'),
 (12, 'John Wick- Chapter 3 - Parabellum (2019).jpeg', 'M7XM597XO94', 'John Wick: Chapter 3 - Parabellum', 'Super-assassin John Wick returns with a $14 million price tag on his head and an army of bounty-hunting killers on his trail. After killing a member of the shadowy international assassin’s guild, the High Table, John Wick is excommunicado, but the world’s most ruthless hit men and women await his every turn.'),
 (13, 'Terminator- Dark Fate (2019).png', 'oxy8udgWRmo', 'Terminator: Dark Fate', 'Decades after Sarah Connor prevented Judgment Day, a lethal new Terminator is sent to eliminate the future leader of the resistance. In a fight to save mankind, battle-hardened Sarah Connor teams up with an unexpected ally and an enhanced super soldier to stop the deadliest Terminator yet.'),
-(14, 'It Chapter Two (2019).jpeg', 'xhJ5P7Up3jA', 'It: Chapter Two', '27 years after overcoming the malevolent supernatural entity Pennywise, the former members of the Losers\' Club, who have grown up and moved away from Derry, are brought back together by a devastating phone call.');
+(14, 'It Chapter Two (2019).jpeg', 'xhJ5P7Up3jA', 'It: Chapter Two', '27 years after overcoming the malevolent supernatural entity Pennywise, the former members of the Losers\' Club, who have grown up and moved away from Derry, are brought back together by a devastating phone call.'),
+(15, 'thumbnail_6688fd04496c03.03596940.png', 'SkcucKDrbOI', 'How to Train Your Dragon: The Hidden World', 'As Hiccup fulfills his dream of creating a peaceful dragon utopia, Toothless’ discovery of an untamed, elusive mate draws the Night Fury away. When danger mounts at home and Hiccup’s reign as village chief is tested, both dragon and rider must make impossible decisions to save their kind.'),
+(17, 'thumbnail_668901f0775749.11175454.png', '1roy4o4tqQM', 'Pokémon: Detective Pikachu', 'In a world where people collect pocket-size monsters (Pokémon) to do battle, a boy comes across an intelligent monster who seeks to be a detective.'),
+(20, 'thumbnail_668911054586e7.56819813.png', '7NiYVoqBt-8', 'Dumbo', 'A young elephant, whose oversized ears enable him to fly, helps save a struggling circus, but when the circus plans a new venture, Dumbo and his friends discover dark secrets beneath its shiny veneer.');
 
 -- --------------------------------------------------------
 
@@ -70,6 +73,13 @@ CREATE TABLE `review` (
   `review_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `review`
+--
+
+INSERT INTO `review` (`review_id`, `user_id`, `movie_id`, `potato_meter`, `review`, `review_date`) VALUES
+(5, 3, 1, 5, 'New test review', '2024-07-06 10:10:31');
+
 -- --------------------------------------------------------
 
 --
@@ -80,8 +90,16 @@ CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
+  `password` varchar(100) NOT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `is_admin`) VALUES
+(3, 'jomszxc', 'sabaterjommelrowin@outlook.com', '$2y$10$TNReiIZmqN7.I/2he5985.CCI2wimCs3Witv8RshC3zjlrU9461li', 1);
 
 --
 -- Indexes for dumped tables
@@ -117,19 +135,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `movie`
 --
 ALTER TABLE `movie`
-  MODIFY `movie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `movie_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

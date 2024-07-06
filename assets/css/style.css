@@ -189,8 +189,13 @@
 }
 
 .index .movie-area table .thumbnail {
+    border-radius: 3px;
     height: 220px;
     width: 160px;
+}
+
+.index .movie-area table .thumbnail:hover{
+    filter: brightness(0.8);
 }
 
 .index .title {
@@ -237,16 +242,36 @@
     font-size: 30px;
 }
 
-.movie .potato img{
-    width: 30px;
+.movie .rating .potato img, .rating .active img{
+    width: 27px;
 }
 
-.movie .form-control {
+.movie #submit-rating{
     border: none;
     height: 40px;
-    width: 300px;
+    width: 200px;
     background: black;
     color: white;
+}
+
+.movie #submit-rating:hover{
+    background: rgb(76, 76, 76);
+}
+
+.movie #review {
+    font-size: 18px;
+    color: black;
+    border: 2px solid black;
+    height: 360px;
+    width: 600px;
+}
+
+.movie #review::placeholder {
+    font-size: 18px;
+}
+
+.movie #review:hover {
+    background: none;
 }
 
 .movie .form-control:hover {

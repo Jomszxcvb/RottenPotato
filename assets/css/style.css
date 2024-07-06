@@ -121,6 +121,20 @@
     animation: fade-up 0.7s;
 }
 
+.hidden {
+    display: none;
+}
+
+.drop-zone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+.drop-zone.over {
+    background-color: #f0f0f0;
+}
+
 .movie .search-bar {
     position: relative;
     height: 50px;

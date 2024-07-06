@@ -2,7 +2,7 @@
 
 class User
 {
-    private $dbh;
+    protected $dbh;
 
     public function __construct($db) {
         $this->dbh = $db->getDbh();
@@ -50,37 +50,49 @@ class User
     }
 
     public function leaveReview($user_id, $movie_id, $rating, $review): bool {
-        // Validate the rating
+        error_log("leaveReview method started");
+
+        // Validate rating
         if ($rating === '' || !is_numeric($rating) || $rating < 1 || $rating > 5) {
-            // Handle invalid rating value appropriately
+            error_log("Invalid rating: $rating");
             return false;
         }
 
-        // Prepare the query to check if the review already exists
-        $stmt = $this->dbh->prepare("SELECT * FROM review WHERE user_id = ? AND movie_id = ?");
-        $stmt->bind_param("ii", $user_id, $movie_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        // Convert rating to an integer
+        $rating = (int)$rating;
 
+        // Log input parameters
+        error_log("Parameters - UserID: $user_id, MovieID: $movie_id, Rating: $rating, Review: $review");
+
+        // Check if the review already exists
+        $checkStmt = $this->dbh->prepare("SELECT * FROM review WHERE user_id = ? AND movie_id = ?");
+        $checkStmt->bind_param("ii", $user_id, $movie_id);
+        $checkStmt->execute();
+        $result = $checkStmt->get_result();
+
+        // Log the result of the check
         if ($result->num_rows > 0) {
-            // Prepare the query to update the existing review
+            error_log("Review exists. Preparing to update.");
             $updateStmt = $this->dbh->prepare("UPDATE review SET potato_meter = ?, review = ?, review_date = NOW() WHERE user_id = ? AND movie_id = ?");
             $updateStmt->bind_param("isii", $rating, $review, $user_id, $movie_id);
         } else {
-            // Prepare the query to insert a new review
+            error_log("Review does not exist. Preparing to insert.");
             $insertStmt = $this->dbh->prepare("INSERT INTO review (user_id, movie_id, potato_meter, review, review_date) VALUES (?, ?, ?, ?, NOW())");
             $insertStmt->bind_param("iiis", $user_id, $movie_id, $rating, $review);
         }
 
-        // Execute the appropriate query
-        if (isset($updateStmt) && !$updateStmt->execute()) {
-            // Handle error
-            return false;
-        } elseif (isset($insertStmt) && !$insertStmt->execute()) {
-            // Handle error
+        $executeResult = isset($updateStmt) ? $updateStmt->execute() : $insertStmt->execute();
+
+        // Log the execution result
+        error_log($executeResult ? "Statement executed successfully." : "Statement execution failed.");
+
+        if (!$executeResult) {
+            // Log error
+            error_log("SQL Error: " . $this->dbh->error);
             return false;
         }
 
+        error_log("leaveReview method completed");
         return true;
     }
 

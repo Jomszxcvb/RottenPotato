@@ -90,24 +90,26 @@ if (isset($_SESSION['user_id'])) {
                 </p>
             <?php endif; ?>
         </div>
-        <h3>Recent Reviews</h3>
+        <h3 class="mt-5 mb-3">Recent Reviews</h3>
         <?php if (!empty($recentReviews)): ?>
             <?php foreach ($recentReviews as $review): ?>
-                <div class="review">
-                    <p class="review-info">Rating:
-                        <?php
-                        for($i = 0; $i < 5; $i++) {
-                            if ($i < floor($review["potato_meter"])) {
-                                echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>';
-                            } else {
-                                echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
+                <div class="review mb-3">
+                    <div class="review-info mx-3">
+                        <p>Rating:
+                            <?php
+                            for($i = 0; $i < 5; $i++) {
+                                if ($i < floor($review["potato_meter"])) {
+                                    echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>';
+                                } else {
+                                    echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
+                                }
                             }
-                        }
-                        echo " &nbsp(" . round($movie_potato_meter, 1) . ")</b>";
-                        ?>
-                    </p>
-                    <p><?= htmlspecialchars($review['username']); ?> on <?= htmlspecialchars($review['review_date']); ?></p>
-                    <p class="review-text"><?= htmlspecialchars($review['review']); ?></p>
+                            echo " &nbsp(" . round($movie_potato_meter, 1) . ")</b>";
+                            ?>
+                        </p>
+                        <p><?= htmlspecialchars($review['username']); ?> on <?= htmlspecialchars($review['review_date']); ?></p>
+                        <p class="review-text"><?= htmlspecialchars($review['review']); ?></p>
+                    </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>

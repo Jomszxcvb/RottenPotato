@@ -298,3 +298,13 @@
 .movie .back .fa-solid {
     color: inherit;
 }
+
+.movie .review {
+    background: rgb(242, 242, 242);
+    padding-bottom: 1px;
+}
+
+.movie .review .review-text{
+    text-align: justify;
+    text-justify: inter-word;
+}

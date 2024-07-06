@@ -30,6 +30,7 @@ class User
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['is_admin'] = $user['is_admin'];
             return $user;
         }
         return false;

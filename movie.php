@@ -123,69 +123,72 @@ if (isset($_SESSION['user_id'])) {
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Select all the potatoes
         const potatoes = document.querySelectorAll('.potato');
         const potatoMeterInput = document.querySelector('#potato_meter');
 
-        // Get the user's current rating
         let userRating = <?php echo isset($userPotatoMeter) ? $userPotatoMeter : 0; ?>;
-
-        // Check if the user's rating is a number
         if (isNaN(userRating)) {
             userRating = 0;
         }
 
-        // Color the potatoes based on the user's current rating
-        for (let i = 0; i < userRating; i++) {
-            potatoes[i].classList.remove('potato');
-            potatoes[i].classList.add('active');
-        }
+        // Set the potato meter input to the user's current rating
+        potatoMeterInput.value = userRating;
 
+        // Initial coloring of potatoes based on the user's rating
         potatoes.forEach((potato, index) => {
-                potato.addEventListener('mouseover', () => {
-                    for (let i = 0; i <= index; i++) {
-                        potatoes[i].style.filter = 'grayscale(0)';
-                        potatoes[i].style.cursor = 'pointer';
-                    }
+            if (index < userRating) {
+                potato.classList.add('active');
+                potato.style.filter = 'grayscale(0)';
+            } else {
+                potato.classList.remove('active');
+                potato.style.filter = 'grayscale(1)';
+            }
 
-                    for (let i = index + 1; i < potatoes.length; i++) {
-                        potatoes[i].style.filter = 'grayscale(1)';
-                        potatoes[i].style.cursor = 'pointer';
-                    }
-                });
-
-                potato.addEventListener('mouseout', () => {
-                    for (let i = 0; i < userRating; i++) {
-                        potatoes[i].style.filter = 'grayscale(0)';
-                    }
-
-                    for (let i = userRating; i < potatoes.length; i++) {
-                        potatoes[i].style.filter = 'grayscale(1)';
-                    }
-                });
-
-                potato.addEventListener('click', () => {
-                    userRating = index + 1;
-                    potatoMeterInput.value = userRating; // Update the potato meter input field
-                });
-
-                // Add event listener for form submission
-                document.querySelector('#potato_rating').addEventListener('submit', (e) => {
-                    e.preventDefault();
-
-                    // Update the userRating variable
-                    userRating = potatoMeterInput.value;
-
-                    for (let i = 0; i < userRating; i++) {
-                    potatoes[i].classList.remove('potato');
-                    potatoes[i].classList.add('active');
+            potato.addEventListener('mouseover', () => {
+                for (let i = 0; i <= index; i++) {
+                    potatoes[i].style.filter = 'grayscale(0)';
+                    potatoes[i].style.cursor = 'pointer';
                 }
+                for (let i = index + 1; i < potatoes.length; i++) {
+                    potatoes[i].style.filter = 'grayscale(1)';
+                    potatoes[i].style.cursor = 'pointer';
+                }
+            });
 
-                    // Submit the form
-                    e.target.submit();
+            potato.addEventListener('mouseout', () => {
+                for (let i = 0; i < userRating; i++) {
+                    potatoes[i].style.filter = 'grayscale(0)';
+                }
+                for (let i = userRating; i < potatoes.length; i++) {
+                    potatoes[i].style.filter = 'grayscale(1)';
+                }
+            });
+
+            potato.addEventListener('click', () => {
+                userRating = index + 1;
+                potatoMeterInput.value = userRating; // Update the potato meter input field
+                // Update the visual state of potatoes
+                potatoes.forEach((p, pi) => {
+                    if (pi < userRating) {
+                        p.classList.add('active');
+                        p.style.filter = 'grayscale(0)';
+                    } else {
+                        p.classList.remove('active');
+                        p.style.filter = 'grayscale(1)';
+                    }
                 });
             });
         });
+
+        // Add event listener for form submission
+        document.querySelector('#potato_rating').addEventListener('submit', (e) => {
+            // Prevent the default form submission
+            e.preventDefault();
+
+            // Submit the form
+            e.target.submit();
+        });
+    });
     </script>
 </body>
 </html>

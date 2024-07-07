@@ -190,6 +190,45 @@
     }
 }
 
+.index .addMovie {
+    width: 70%;
+    animation: fade-up 0.5s;
+}
+
+.index .addMovie .form-control {
+    box-sizing: border-box;
+    border: 1px solid gray;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    resize: vertical; 
+    overflow-y: auto; 
+}
+
+.index .addMovie .form-group {
+    animation: fade-in 0.7s;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.index .addMovie button[type="submit"]{
+    width: 100px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+}
+
+.index .addMovie button[type="submit"]:hover {
+    background-color: #044b98;
+}
+
 .index .movie-area table td, th {
     padding: 10px 0px;
 }

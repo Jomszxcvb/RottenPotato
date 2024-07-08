@@ -132,7 +132,7 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
                         <img class="thumbnail my-3 me-3 ms-5" src="assets/movie_thumbnails/<?php echo $movie_thumbnail; ?>" alt="<?php echo $movie_title;?>">
                         </a>
                     </td>
-                    <td><?php echo $movie_title; ?></td>s
+                    <td><?php echo $movie_title; ?></td>
                     <td class="text-center h5">
                         <?php
                         for($i = 0; $i < 5; $i++) {

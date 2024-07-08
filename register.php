@@ -7,6 +7,7 @@ include 'includes/User.php';
 $db = new DB();
 $user = new User($db);
 
+$username = $email = $password = $confirm_password = "";
 $username_err = $email_err = $password_err = $confirm_password_err = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $username_err = 'Username is required';
     } else {
         $result = $user->usernameAvailability($username);
-        if (mysqli_num_rows($result) > 0) {
+        if ($result) {
             $username_err = 'Username is already taken';
         }
     }
@@ -33,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $email_err = 'Invalid email format';
         }
         $result = $user->emailAvailability($email);
-        if (mysqli_num_rows($result) > 0) {
+        if ($result) {
             $email_err = 'Email is already registered';
         }
     }

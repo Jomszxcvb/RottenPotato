@@ -112,7 +112,7 @@ class User
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->num_rows === 0;
+        return $result->num_rows;
     }
 
     // For email availability
@@ -121,6 +121,6 @@ class User
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->num_rows === 0;
+        return $result->num_rows;
     }
 }

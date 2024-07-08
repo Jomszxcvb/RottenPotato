@@ -8,7 +8,7 @@ class DB {
 
     public function __construct() {
         // Connect to the MySQL server
-        $this->dbh = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+        $this->dbh = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD);
 
         // Check connection
         if ($this->dbh->connect_error) {

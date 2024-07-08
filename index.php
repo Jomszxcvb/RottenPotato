@@ -134,16 +134,13 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
                     </td>
                     <td><?php echo $movie_title; ?></td>
                     <td class="text-center h5">
-                        <?php
-                        for($i = 0; $i < 5; $i++) {
-                            if ($i < floor($movie_potato_meter)) {
-                                echo '<span class="movie_potato active"><img width="25px" src="assets/potato/potato.svg" alt="active potato"></span>';
-                            } else {
-                                echo '<span class="movie_potato"><img width="25px" src="assets/potato/potato.svg" alt="inactive potato"></span>';
-                            }
-                        }
-                        echo " (" . round($movie_potato_meter, 1) . ")";
-                        ?>
+                        <?php for ($i = 0; $i < 5; $i++): ?>
+                            <?php if ($i < floor($movie_potato_meter)): ?>
+                                <span class="movie_potato active"><img width="25px" src="assets/potato/potato.svg" alt="active potato"></span>
+                            <?php else: ?>
+                                <span class="movie_potato"><img width="25px" src="assets/potato/potato.svg" alt="inactive potato"></span>
+                            <?php endif; ?>
+                        <?php endfor; ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

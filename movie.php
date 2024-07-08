@@ -104,7 +104,7 @@ if (isset($_SESSION['user_id'])) {
                                     echo '<span class="movie_potato"><img src="assets/potato/potato.svg" alt="inactive potato"></span>';
                                 }
                             }
-                            echo " &nbsp(" . round($movie_potato_meter, 1) . ")</b>";
+                            echo " &nbsp(" . round($review["potato_meter"], 1) . ")</b>";
                             ?>
                         </p>
                         <p><?= htmlspecialchars($review['username']); ?> on <?= htmlspecialchars($review['review_date']); ?></p>

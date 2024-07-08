@@ -13,31 +13,31 @@
 </head>
 <body class="about">
     <?php include 'navbar.php'; ?>
-    <div class="container-fluid bg-black p-3 text-white">
-        <div class="container text-center">
-            <h1>About Us</h1>
+    <div class="content pb-5 mt-3 mx-auto text-white">
+        <div class="container-fluid bg-black p-3 text-white">
+            <div class="text-center">
+                <h1>About Us</h1>
+            </div>
         </div>
-    </div>
-    <div class="container pb-5 mt-3 bg-white mx-auto">
-        <div class="d-flex justify-content-around bg-black text-white">
-            <p class="mt-2"><i class="fa-solid fa-magnifying-glass"></i>&nbspSearch Movies</p>
-            <p class="mt-2"><i class="fa-regular fa-pen-to-square"></i>&nbspReview Movies</p>
-            <p class="mt-2"><span class="potato"><img src="assets/potato/potato.svg" alt="active potato"></span>&nbspRate Movies</p>
-        </div>
-        <div class="text-center mx-auto" style="width:90%;">
-            <div class="mt-5 pb-5">
+        <div class="container-fluid text-center mx-auto">
+            <div class="icons d-flex justify-content-around bg-black text-white">
+                <p class="mt-2"><i class="fa-solid fa-magnifying-glass"></i>&nbspSearch Movies</p>
+                <p class="mt-2"><i class="fa-regular fa-pen-to-square"></i>&nbspReview Movies</p>
+                <p class="mt-2"><span class="potato"><img src="assets/potato/potato.svg" alt="active potato"></span>&nbspRate Movies</p>
+            </div>
+            <div class="section">
                 <h1>Welcome to Rotten Potato</h1>
                 <p>A go-to platform for movie ratings and reviews! Inspired by the renowned Rotten Tomatoes, 
                 we provide a unique and fun way to rate movies on a scale of 1 to 5 potatoes.</p>
             </div>
             <hr>
-            <div class="mt-5 pb-5">
+            <div class="section">
                 <h1>Our Mission</h1>
                 <p>At Rotten Potato, our mission is to help movie enthusiasts make informed decisions about what to watch. We believe that every movie has its own flavor, 
                 and our potato rating system offers a quirky and memorable way to capture the essence of each film.</p>
             </div>
             <hr>
-            <div class="mt-5 pb-5">
+            <div class="section">
                 <h1>How It Works</h1>
                 <p class="mt-4"><b>Our rating system is simple and straightforward</b></p>
                 <div class="d-flex justify-content-between mt-4">
@@ -73,7 +73,6 @@
                         </div>
                 </div>
             </div>
-            <hr>
         </div>
     </div>
 

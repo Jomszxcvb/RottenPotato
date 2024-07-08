@@ -45,14 +45,14 @@ if (isset($_SESSION['user_id'])) {
         </div>
     </div>
     <div class="container-xl text-center mt-3">
-        <h1>Movie Details</h1>
+        <h1 class="text-white">Movie Details</h1>
         <iframe width="100%" height="761.25" src="https://www.youtube.com/embed/<?php echo $movie_trailer_id; ?>?autoplay=1" allow="autoplay"></iframe>
     </div>
     <div class="container-xl pb-3">
         <hr>
         <div class="d-flex">
             <img class="thumbnail" src="assets/movie_thumbnails/<?php echo $movie_thumbnail; ?>" alt="<?php echo $movie_title;?>">
-            <div class="ms-3 d-5">
+            <div class="ms-3 d-5 text-white">
                 <h2 id="title"><?php echo $movie_title; ?></h2>
                 <p id="synopsis"><?php echo $movie_synopsis; ?></p>
             </div>
@@ -70,7 +70,7 @@ if (isset($_SESSION['user_id'])) {
             ?>
         </p>
         <hr>
-        <div class="rating container text-center">
+        <div class="rating container text-center text-white">
             <p class="rate-label"><b>Share your Rating and Review</b></p>
             <?php if(isset($_SESSION['user_id'])): ?>
                 <form id="potato_rating" method="post" action="rate_movie.php">
@@ -90,11 +90,11 @@ if (isset($_SESSION['user_id'])) {
                 </p>
             <?php endif; ?>
         </div>
-        <h3 class="mt-5 mb-3">Recent Reviews</h3>
+        <h3 class="mt-5 mb-3 text-white">Recent Reviews</h3>
         <?php if (!empty($recentReviews)): ?>
             <?php foreach ($recentReviews as $review): ?>
                 <div class="review mb-3">
-                    <div class="review-info mx-3">
+                    <div class="review-info text-white mx-3">
                         <p>Rating:
                             <?php
                             for($i = 0; $i < 5; $i++) {
@@ -108,15 +108,15 @@ if (isset($_SESSION['user_id'])) {
                             ?>
                         </p>
                         <p><?= htmlspecialchars($review['username']); ?> on <?= htmlspecialchars($review['review_date']); ?></p>
-                        <p class="review-text"><?= htmlspecialchars($review['review']); ?></p>
+                        <p class="review-text text-white"><?= htmlspecialchars($review['review']); ?></p>
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>No recent reviews.</p>
+            <p class="text-white">No recent reviews.</p>
         <?php endif; ?>
         <div class="mt-5">
-            <a class="back text-decoration-none" href="index.php">
+            <a class="back text-decoration-none text-white" href="index.php">
                 <i class="fa-solid fa-arrow-left"></i>&nbspBack to movies
             </a>
         </div>

@@ -51,9 +51,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include 'navbar.php'; ?>
 
     <div class="main">
-        <div class="backgrounds-container">
-            <img class="showing background" src="assets/backgrounds/background 1.jpg">
-        </div>
         <form class="p-3 text-white rounded" method="post">
             <h1>Login</h1>
             <?php

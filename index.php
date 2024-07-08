@@ -45,9 +45,8 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
 <body class="index">
     <?php include 'navbar.php'; ?>
 
-
-    <div class="welcome-area text-center container-fluid">
-        <div class="background z-0"></div>
+    <div class="search-area text-center container-fluid">
+        <div class="background"></div>
         <div class="mt-2 position-relative">
             <?php
             if (!isset($_SESSION['user_id'])) {
@@ -57,11 +56,9 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
                 // echo "Your user ID is " . $_SESSION['user_id'] . "."; // Uncomment this line to see the user ID
             } ?>
         </div>
-        <div class="position-relative">
+        <div>
             <h1>Welcome to Rotten Potato!</h1>
         </div>
-    </div>
-    <div class="search-area container-xxl mt-5">
         <div class="mt-4">
             <form class="search-bar p-2 d-flex mx-auto" action="" method="get">
                 <button class="fa-solid fa-magnifying-glass" type="submit"></button>
@@ -78,11 +75,9 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
             <div class="addMovie container mt-5">
                     <button id="addMovieButton">
                         <svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-
                             <title>plus-square</title>
                             <desc>Created with Sketch Beta.</desc>
                             <defs>
-
                         </defs>
                             <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
                                 <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-102.000000, -1037.000000)" fill="#000000">
@@ -109,13 +104,14 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
         <?php endif; ?>
     <?php endif; ?>
 
-    <div class="movie-area container-xl mt-4 pb-5">
+    <div class="movie-area container-xl mt-5 pb-5">
         <div class="mx-auto" style="width:90%;">
-            <table class="container-fluid">
+            <table>
                 <thead>
                     <tr>
-                        <th class="ps-5 col-6">Movie Title</th>
-                        <th class="col-6 text-center">Potato Meter</th>
+                        <th class="ps-5">Movie Title</th>
+                        <th width="0%"></th>
+                        <th class="text-center">Potato Meter</th>
                     </tr>
                 </thead>
             <tbody>
@@ -127,20 +123,23 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
                     $movie_thumbnail = htmlspecialchars($movie['thumbnail']);
                     $movie_potato_meter = $Movie->getPotatoMeter($movie_id);
                     ?>
-                    <td>
-                        <a class="title text-decoration-none" href="movie.php?movie_id=<?php echo $movie_id; ?>">
-                        <img class="thumbnail my-3 me-3 ms-5" src="assets/movie_thumbnails/<?php echo $movie_thumbnail; ?>" alt="<?php echo $movie_title;?>">
+                    <td width="20%">
+                        <a href="movie.php?movie_id=<?php echo $movie_id; ?>">
+                        <img class="thumbnail my-3 me-3 ms-3" src="assets/movie_thumbnails/<?php echo $movie_thumbnail; ?>" alt="<?php echo $movie_title;?>">
                         </a>
                     </td>
-                    <td><?php echo $movie_title; ?></td>
-                    <td class="text-center h5">
-                        <?php for ($i = 0; $i < 5; $i++): ?>
-                            <?php if ($i < floor($movie_potato_meter)): ?>
-                                <span class="movie_potato active"><img width="25px" src="assets/potato/potato.svg" alt="active potato"></span>
-                            <?php else: ?>
-                                <span class="movie_potato"><img width="25px" src="assets/potato/potato.svg" alt="inactive potato"></span>
-                            <?php endif; ?>
-                        <?php endfor; ?>
+                    <td width="50%"><a class="title" href="movie.php?movie_id=<?php echo $movie_id; ?>"><?php echo $movie_title; ?></a></td>
+                    <td width="25%" class="text-center h5">
+                        <?php
+                        for($i = 0; $i < 5; $i++) {
+                            if ($i < floor($movie_potato_meter)) {
+                                echo '<span class="movie_potato active"><img width="25px" src="assets/potato/potato.svg" alt="active potato"></span>';
+                            } else {
+                                echo '<span class="movie_potato"><img width="25px" src="assets/potato/potato.svg" alt="inactive potato"></span>';
+                            }
+                        }
+                        echo " (" . round($movie_potato_meter, 1) . ")";
+                        ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -151,18 +150,18 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
             <?php if (!empty($movies)): ?>
                 <div class="pagination d-flex justify-content-between mx-auto mt-4" style="width: 30%;">
                     <?php if ($current_page > 1): ?>
-                    <a class="text-decoration-none" href="?page=<?php echo $current_page - 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Previous</a>
+                    <a class="text-decoration-none text-white" href="?page=<?php echo $current_page - 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Previous</a>
                     <?php endif; ?>
 
                     <?php
                     $start = max(1, $current_page - 5);
                     $end = min($total_pages, $current_page + 5);
                     for ($i = $start; $i <= $end; $i++): ?>
-                    <a class="text-decoration-none" href="?page=<?php echo $i; ?>&search=<?php echo $_GET['search'] ?? ''; ?>"<?php if ($i == $current_page) echo ' class="active"'; ?>><?php echo $i; ?></a>
+                    <a class="text-decoration-none text-white" href="?page=<?php echo $i; ?>&search=<?php echo $_GET['search'] ?? ''; ?>"<?php if ($i == $current_page) echo ' class="active"'; ?>><?php echo $i; ?></a>
                     <?php endfor; ?>
 
                     <?php if ($current_page < $total_pages): ?>
-                    <a class="text-decoration-none" href="?page=<?php echo $current_page + 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Next</a>
+                    <a class="text-decoration-none text-white" href="?page=<?php echo $current_page + 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Next</a>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>

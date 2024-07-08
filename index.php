@@ -73,38 +73,40 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
         </div>
     </div>
 
-    <?php if (!isset($_SESSION['is_admin']) && $_SESSION['is_admin']): ?>
-        <div class="addMovie container mt-5">
-                <button id="addMovieButton">
-                    <svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <?php if (isset($_SESSION['is_admin'])): ?>
+        <?php if ($_SESSION['is_admin']): ?>
+            <div class="addMovie container mt-5">
+                    <button id="addMovieButton">
+                        <svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
 
-                        <title>plus-square</title>
-                        <desc>Created with Sketch Beta.</desc>
-                        <defs>
+                            <title>plus-square</title>
+                            <desc>Created with Sketch Beta.</desc>
+                            <defs>
 
-                    </defs>
-                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                            <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-102.000000, -1037.000000)" fill="#000000">
-                                <path d="M124,1054 L119,1054 L119,1059 C119,1059.55 118.552,1060 118,1060 C117.448,1060 117,1059.55 117,1059 L117,1054 L112,1054 C111.448,1054 111,1053.55 111,1053 C111,1052.45 111.448,1052 112,1052 L117,1052 L117,1047 C117,1046.45 117.448,1046 118,1046 C118.552,1046 119,1046.45 119,1047 L119,1052 L124,1052 C124.552,1052 125,1052.45 125,1053 C125,1053.55 124.552,1054 124,1054 L124,1054 Z M130,1037 L106,1037 C103.791,1037 102,1038.79 102,1041 L102,1065 C102,1067.21 103.791,1069 106,1069 L130,1069 C132.209,1069 134,1067.21 134,1065 L134,1041 C134,1038.79 132.209,1037 130,1037 L130,1037 Z" id="plus-square" sketch:type="MSShapeGroup">
+                        </defs>
+                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-102.000000, -1037.000000)" fill="#000000">
+                                    <path d="M124,1054 L119,1054 L119,1059 C119,1059.55 118.552,1060 118,1060 C117.448,1060 117,1059.55 117,1059 L117,1054 L112,1054 C111.448,1054 111,1053.55 111,1053 C111,1052.45 111.448,1052 112,1052 L117,1052 L117,1047 C117,1046.45 117.448,1046 118,1046 C118.552,1046 119,1046.45 119,1047 L119,1052 L124,1052 C124.552,1052 125,1052.45 125,1053 C125,1053.55 124.552,1054 124,1054 L124,1054 Z M130,1037 L106,1037 C103.791,1037 102,1038.79 102,1041 L102,1065 C102,1067.21 103.791,1069 106,1069 L130,1069 C132.209,1069 134,1067.21 134,1065 L134,1041 C134,1038.79 132.209,1037 130,1037 L130,1037 Z" id="plus-square" sketch:type="MSShapeGroup">
 
-                    </path>
+                        </path>
+                                </g>
                             </g>
-                        </g>
-                    </svg>
-                </button>
-                <form class="form-group" id="addMovieForm" method="post" enctype="multipart/form-data">
-                    <input class="form-control" type="text" name="title" placeholder="Title" required>
-                    <span id="titleError" class="error"></span>
-                    <input class="form-control" type="text" name="synopsis" placeholder="Synopsis" required>
-                    <span id="synopsisError" class="error"></span>
-                    <input class="form-control" type="text" name="trailer_id" placeholder="Trailer ID" required>
-                    <span id="trailerIdError" class="error"></span>
-                    <input class="form-control" type="file" name="fileInput" id="fileInput" accept="image/png" required>
-                    <span id="fileInputError" class="error"></span>
-                    <img id="thumbnailPreview" src="#" alt="Thumbnail Preview" style="display:none;">
-                    <button type="submit">Add Movie</button>
-                </form>
-        </div>
+                        </svg>
+                    </button>
+                    <form class="form-group" id="addMovieForm" method="post" enctype="multipart/form-data">
+                        <input class="form-control" type="text" name="title" placeholder="Title" required>
+                        <span id="titleError" class="error"></span>
+                        <input class="form-control" type="text" name="synopsis" placeholder="Synopsis" required>
+                        <span id="synopsisError" class="error"></span>
+                        <input class="form-control" type="text" name="trailer_id" placeholder="Trailer ID" required>
+                        <span id="trailerIdError" class="error"></span>
+                        <input class="form-control" type="file" name="fileInput" id="fileInput" accept="image/png" required>
+                        <span id="fileInputError" class="error"></span>
+                        <img id="thumbnailPreview" src="#" alt="Thumbnail Preview" style="display:none;">
+                        <button type="submit">Add Movie</button>
+                    </form>
+            </div>
+        <?php endif; ?>
     <?php endif; ?>
 
     <div class="movie-area container-xl mt-4 pb-5">

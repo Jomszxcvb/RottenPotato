@@ -30,6 +30,7 @@ $targetFile = $targetDirectory . $uniqueFilename;
 if (move_uploaded_file($thumbnail['tmp_name'], $targetFile)) {
     if ($Admin->addMovie($title, $synopsis, $uniqueFilename, $trailer_id)) {
         echo json_encode(['success' => true, 'message' => 'Movie added successfully.']);
+        header('Location: index.php');
     } else {
         echo json_encode(['success' => false, 'message' => 'Failed to add the movie.']);
     }

@@ -47,7 +47,7 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
 
     <div class="search-area text-center container-fluid">
         <div class="background"></div>
-        <div class="mt-2 position-relative">
+        <div class="mt-2">
             <?php
             if (!isset($_SESSION['user_id'])) {
                 echo "<i class='fa-solid fa-lock'></i>&nbsp"."You are not logged in.";

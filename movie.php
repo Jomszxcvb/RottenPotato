@@ -116,7 +116,7 @@ if (isset($_SESSION['user_id'])) {
             <p class="text-white">No recent reviews.</p>
         <?php endif; ?>
         <div class="mt-5">
-            <a class="back text-decoration-none text-white" href="index.php">
+            <a class="back text-decoration-none" href="index.php">
                 <i class="fa-solid fa-arrow-left"></i>&nbspBack to movies
             </a>
         </div>

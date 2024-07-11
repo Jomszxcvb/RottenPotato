@@ -6,9 +6,18 @@
     filter: grayscale(0);
 }
 
-.nav {
-    background: black;
-    border-bottom: 0.1em solid rgb(73, 73, 73);
+.nav .nav-link {
+    font-size: 1.1em;
+    color: white;
+}
+
+.nav .nav-link:hover {
+    color: orange;
+}
+
+.nav .nav-link .fa-solid {
+    font-size: inherit;
+    color: inherit;
 }
 
 .movie_potato {
@@ -50,19 +59,37 @@
     border: none;
 }
 
-.about {
-    background: black;
+.register  input[type=submit], .login input[type=submit] {
+    background: #FF8C00;
 }
 
-.about .container-fluid {
-    background-image: black;
+.register  input[type=submit]:hover, .login input[type=submit]:hover {
+    background: #dd7a00;
+}
+
+.register .main a, .login .main a {
+    color: orange;
+    text-decoration: none;
+}
+
+.register .main  a:hover, .login .main a:hover {
+    color: rgb(212, 138, 0);
+    text-decoration: underline;
+}
+
+.about {
+    background: black;
 }
 
 .about .container {
    font-size: 0.6em;
    background: transparent;
-   padding: 0.2em;
+   padding: 0.4em;
 }
+
+.about .container-fluid {
+    width: 60%;
+ }
 
 .about .container span img {
     width: 1.2em;
@@ -74,7 +101,7 @@
 
 .about .content {
    animation: fade-up 0.6s;
-   width: 60%;
+   width: 100%;
    font-size: 2em;
    background: black;
 }
@@ -106,7 +133,7 @@
 .index .search-area {
     z-index: 0;
     padding: 0;
-    height: 35em;
+    height: 30em;
     background: black;
     background-position: center;
     color: #FFFFF3;
@@ -133,13 +160,18 @@
     animation: fade-up 0.5s;
 }
 
-.index .search-bar{
+.index .search-bar {
     position: relative;
     height: 3em;
     width: 40em;
     align-items: center;
     border-radius: 3em;
     border: 0.12em solid white;
+    transition: box-shadow 0.3s ease;
+}
+
+.index .search-bar:focus-within {
+    box-shadow: 0 0 1em 0.2em rgba(255, 255, 255, 0.7);
 }
 
 .index .search-bar input {
@@ -148,8 +180,7 @@
     outline: none;
     border: none;
     background: transparent;
-    height: 3em;
-    width: 40em;
+    width: 24.2em;
 }
 
 .index .search-bar input::placeholder {
@@ -181,7 +212,12 @@
     width: 40em;
     align-items: center;
     border-radius: 3em;
-    border: 0.12em solid rgb(127, 127, 127);
+    border: 0.12em solid white;
+    transition: box-shadow 0.3s ease;
+}
+
+.movie .search-bar:focus-within {
+    box-shadow: 0 0 1em 0.2em rgba(255, 255, 255, 0.7);
 }
 
 .movie .search-bar input {
@@ -193,7 +229,16 @@
     width: 40em;
 }
 
-.movie .fa-solid {
+.movie .search-bar input {
+    font-size: 1.5em;
+    color: white;
+    outline: none;
+    border: none;
+    background: transparent;
+    width: 24.2em;
+}
+
+.movie .search-bar .fa-solid {
     background: none;
     border: none;
     font-size: 1.5em;
@@ -206,7 +251,7 @@
     color: white;
 }
 
-.index .fa-solid {
+.index .search-bar .fa-solid {
     background: none;
     border: none;
     font-size: 1.5em;
@@ -285,7 +330,7 @@
 }
 
 .index .movie-area table td{
-    border-top: 0.5px solid rgb(122, 122, 122);
+    border-top: 0.05em solid rgb(122, 122, 122);
 }
 
 .index .movie-area table th {
@@ -301,7 +346,7 @@
 
 .index .movie-area table .thumbnail:hover{
     filter: brightness(0.9);
-    box-shadow: 0 0.8em 3em rgb(80, 121, 243);
+    box-shadow: 0 0.8em 3em orange;
     width: 14.7em;
     height: 20.2em;
 }
@@ -315,7 +360,7 @@
 }
 
 .index .title:hover {
-    color: rgb(52, 101, 247);
+    color: orange;
     font-size: 1.5em;
 }
 
@@ -362,12 +407,12 @@
     border: none;
     height: 40px;
     width: 200px;
-    background-color: #1638df;
+    background-color: rgb(228, 148, 1);
     color: white;
 }
 
 .movie #submit-rating:hover{
-    background-color: #0724b5;
+    background-color: rgb(178, 116, 0);
 }
 
 .movie #review {
@@ -394,11 +439,11 @@
 
 .movie .back{
     font-size: 20px;
-    color: rgb(0, 0, 0);
+    color: white;
 }
 
 .movie .back:hover{
-    color: rgb(76, 76, 76);
+    color: rgb(184, 184, 184);
 }
 
 .movie .login-notice {

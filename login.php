@@ -44,6 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rotten Potato</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -69,7 +70,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input class="form-control" type="password" name="password" value="<?php if(isset($_POST['password'])){ echo $_POST['password']; }?>" placeholder="Password">
                 <span style="color: red;"><?php if(isset($_POST["password"])){ echo $password_err; } ?></span>
             </div><br>
-            <input class="form-control bg-primary text-white" type="submit" value="Login">
+            <input class="form-control text-white" type="submit" value="Login">
             <hr class="opacity-75 mt-4" />
             <p>Don't have an account? <a href="register.php">Register here</a>.</p>
         </form>

@@ -150,18 +150,18 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
             <?php if (!empty($movies)): ?>
                 <div class="pagination d-flex justify-content-between mx-auto mt-4" style="width: 30%;">
                     <?php if ($current_page > 1): ?>
-                    <a class="text-decoration-none text-white" href="?page=<?php echo $current_page - 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Previous</a>
+                    <a class="text-decoration-none" href="?page=<?php echo $current_page - 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Previous</a>
                     <?php endif; ?>
 
                     <?php
                     $start = max(1, $current_page - 5);
                     $end = min($total_pages, $current_page + 5);
                     for ($i = $start; $i <= $end; $i++): ?>
-                    <a class="text-decoration-none text-white" href="?page=<?php echo $i; ?>&search=<?php echo $_GET['search'] ?? ''; ?>"<?php if ($i == $current_page) echo ' class="active"'; ?>><?php echo $i; ?></a>
+                    <a class="text-decoration-none" href="?page=<?php echo $i; ?>&search=<?php echo $_GET['search'] ?? ''; ?>"<?php if ($i == $current_page) echo ' class="active"'; ?>><?php echo $i; ?></a>
                     <?php endfor; ?>
 
                     <?php if ($current_page < $total_pages): ?>
-                    <a class="text-decoration-none text-white" href="?page=<?php echo $current_page + 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Next</a>
+                    <a class="text-decoration-none" href="?page=<?php echo $current_page + 1; ?>&search=<?php echo $_GET['search'] ?? ''; ?>">Next</a>
                     <?php endif; ?>
                 </div>
             <?php endif; ?>

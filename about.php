@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="about">
-    <?php include 'navbar.php'; ?>
+    <?php session_start(); include 'navbar.php'; ?>
     <div class="content pb-5 mt-3 mx-auto text-white">
         <div class="container-fluid bg-black p-3 text-white">
             <div class="text-center">
@@ -42,7 +42,7 @@
             <h1>How It Works</h1>
             <p class="mt-4"><b>Our rating system is simple and straightforward</b></p>
             <div class="d-flex justify-content-between mt-4">
-                    <div class="container shadow">
+                    <div class="container">
                         <div> <?php
                             echo '<span class="movie_potato active"><img src="assets/potato/potato.svg" alt="active potato"></span>'; ?> 
                         </div>

@@ -57,7 +57,7 @@ if (isset($_SESSION['user_id'])) {
                 <p id="synopsis"><?php echo $movie_synopsis; ?></p>
             </div>
         </div>
-        <p class="ms-4"><b>Potato Meter:
+        <p class="potato-meter ms-4"><b>Potato Meter:
             <?php
             for($i = 0; $i < 5; $i++) {
                 if ($i < floor($movie_potato_meter)) {

@@ -74,7 +74,7 @@ $movies = $Movie->getMoviesByPage($start_index, $movies_per_page, $_GET['search'
         <?php if ($_SESSION['is_admin']): ?>
             <div class="addMovie container mt-5">
                     <button id="addMovieButton">
-                        <svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                        <svg width="2.3em" height="2.3em" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                             <title>plus-square</title>
                             <desc>Created with Sketch Beta.</desc>
                             <defs>

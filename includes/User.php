@@ -123,4 +123,50 @@ class User
         $result = $stmt->get_result();
         return $result->num_rows;
     }
+
+    public function updateEmail($userId, $newEmail) {
+        $stmt = $this->dbh->prepare("UPDATE user SET email = ? WHERE user_id = ?");
+        $stmt->bind_param("si", $newEmail, $userId);
+        return $stmt->execute();
+    }
+
+    public function updatePassword($userId, $newPassword) {
+        $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmt = $this->dbh->prepare("UPDATE user SET password = ? WHERE user_id = ?");
+        $stmt->bind_param("si", $passwordHash, $userId);
+        return $stmt->execute();
+    }
+
+    public function getUserInfo($userId) {
+        $stmt = $this->dbh->prepare("SELECT * FROM user WHERE user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        } else {
+            return null;
+        }
+    }
+
+    public function verifyPassword($userId, $password) {
+        $stmt = $this->dbh->prepare("SELECT password FROM user WHERE user_id = ?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows == 1) {
+            $stmt->bind_result($hashedPassword);
+            $stmt->fetch();
+
+            // Verify the password against the hashed password in the database
+            if (password_verify($password, $hashedPassword)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false; // User not found
+        }
+    }
 }

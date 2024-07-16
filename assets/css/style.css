@@ -470,3 +470,93 @@
     text-align: justify;
     text-justify: inter-word;
 }
+
+.profile .container{
+    animation: fade-up 0.5s;
+}
+
+.profile .btn {
+    width: 10em;
+    font-size: 0.8em;
+    font-weight: bold;
+    background: white;
+    animation: fade-in 0.9s;
+}
+
+.profile #editProfile {
+    border: none;
+    background: none;
+    color: white;
+}
+
+.profile #editProfile:hover {
+    color: orange;
+}
+
+.profile .hide {
+    display: none;
+}
+
+.profile p {
+    font-size: 1.1em;
+}
+
+.profile #editProfile:hover + .hide {
+    display: block;
+    color: orange;
+}
+
+.profile .content {
+    background: rgb(25, 25, 25);
+    border-radius: 1.3em;
+    padding-top: 1em;
+    padding-bottom: 1.2em;
+}
+
+.profile .content .text p{
+    color: rgba(255, 255, 255, 0.697);
+}
+
+.profile .btn:hover {
+    background: rgb(191, 191, 191);
+}
+
+.profile .form-control{
+    box-sizing: border-box;
+    border: 0.1em solid rgb(216, 216, 216);
+    margin-bottom: 1em;
+    line-height: 1.5;
+    resize: vertical; 
+    overflow-y: auto; 
+}
+
+.profile .form-control:focus {
+    box-shadow: 0 0 1em 0.1em rgba(255, 255, 255, 0.7);
+}
+
+.profile .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.555);
+}
+
+.profile .form-group {
+    animation: fade-in 0.7s;
+}
+
+.profile button[type="submit"]{
+    margin-top: 0.8em;
+    border-radius: 0.2em;
+    height: 2em;
+    width: 10em;
+    border: none;
+    background-color: white;
+    color: black;
+}
+
+.profile button[type="submit"]:hover {
+    background-color: rgb(163, 163, 163);
+}
+
+.profile .form-control {
+    background: transparent;
+    color: white;
+}

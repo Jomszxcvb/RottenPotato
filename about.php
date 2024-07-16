@@ -19,7 +19,7 @@
                 <h1>About Us</h1>
             </div>
         </div>
-        <div class="container-fluid text-center mx-auto">
+        <div class="container-fluid mx-auto">
             <div class="icons d-flex justify-content-around bg-black text-white">
                 <p class="mt-2"><i class="fa-solid fa-magnifying-glass"></i>&nbspSearch Movies</p>
                 <p class="mt-2"><i class="fa-regular fa-pen-to-square"></i>&nbspReview Movies</p>

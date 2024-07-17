@@ -55,7 +55,7 @@ $userInfo = $user->getUserInfo($_SESSION['user_id']);
                         </div>
                         <hr class="bg-secondary mt-4 mb-5">
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 mb-3">
                                 <button id="editEmailBtn" class="btn text-center" style="display:none" >Edit Email</button>
                                 <!-- Edit Email Form -->
                                 <form class="form-group mt-3" id="editEmailForm" style="display:none" onsubmit="updateEmail(event)">
@@ -68,7 +68,7 @@ $userInfo = $user->getUserInfo($_SESSION['user_id']);
                                 </form>
                             </div>
                                 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 mb-3">
                                 <button id="editPasswordBtn" class="btn text-center" style="display:none" >Edit Password</button>
                                 <!-- Edit Password Form -->
                                 <form class="form-group mt-3" id="editPasswordForm" style="display:none" onsubmit="updatePassword(event)">

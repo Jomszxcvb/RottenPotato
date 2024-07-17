@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2024 at 12:14 PM
+-- Generation Time: Jul 17, 2024 at 01:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -78,7 +78,10 @@ CREATE TABLE `review` (
 --
 
 INSERT INTO `review` (`review_id`, `user_id`, `movie_id`, `potato_meter`, `review`, `review_date`) VALUES
-(5, 3, 1, 5, 'New test review', '2024-07-06 10:10:31');
+(5, 3, 1, 5, 'New test review', '2024-07-06 10:10:31'),
+(6, 3, 4, 3, '', '2024-07-07 12:30:40'),
+(7, 3, 3, 5, '', '2024-07-07 12:46:10'),
+(8, 4, 1, 4, 'test', '2024-07-16 13:14:22');
 
 -- --------------------------------------------------------
 
@@ -99,7 +102,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `is_admin`) VALUES
-(3, 'jomszxc', 'sabaterjommelrowin@outlook.com', '$2y$10$TNReiIZmqN7.I/2he5985.CCI2wimCs3Witv8RshC3zjlrU9461li', 1);
+(3, 'jomszxc', 'sabaterjommelrowin@outlook.com', '$2y$10$EF0jOcsLG752TiITAF6yR.loUtDcmke/9y6CxdtJavnJGMQuMme1u', 1),
+(4, 'admin', 'admin@rottenpotato.com', '$2y$10$s7RDjOlwEbU3lmpqhtpYaOUWhNN4kDLKXIopDqIAJ85RBXWu7MEtS', 1);
 
 --
 -- Indexes for dumped tables
@@ -141,13 +145,13 @@ ALTER TABLE `movie`
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
